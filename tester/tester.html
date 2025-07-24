@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Entidades API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #2c3e50;
+        }
+
+        .entity-section {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        form {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px dashed #dcdcdc;
+            border-radius: 8px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        input[type="password"],
+        textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #cdd4da;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+            /* Include padding and border in the element's total width and height */
+        }
+
+        input[type="checkbox"] {
+            margin-right: 8px;
+            transform: scale(1.2);
+            /* Make checkbox slightly larger */
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button.delete {
+            background-color: #dc3545;
+        }
+
+        button.delete:hover {
+            background-color: #c82333;
+        }
+
+        pre {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            /* Ensures long lines wrap */
+            word-wrap: break-word;
+            /* Breaks long words */
+            border: 1px solid #ced4da;
+            max-height: 300px;
+        }
+
+        .response-container {
+            margin-top: 20px;
+        }
+
+        .info-message {
+            background-color: #e9f7ef;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            color: #155724;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            color: #721c24;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Prueba de Métodos de Entidades API</h1>
+    <div class="info-message">
+        <p>Utiliza esta página para interactuar con los diferentes modelos de tu API. Asegúrate de que tu servidor
+            backend esté corriendo y escuchando en las rutas correspondientes (por ejemplo, <code>/api/paises</code>).
+        </p>
+        <p><strong>Nota:</strong> Para modelos con relaciones (ej. `Provincias` que requiere un `idPais`), necesitarás
+            crear primero las entidades padre y luego usar sus IDs para crear las entidades hijas.</p>
+    </div>
+
+    <div id="app">
+        <div class="entity-section">
+            <h2>Países (<span id="paises-count">0</span> registros)</h2>
+            <form id="create-pais-form">
+                <h3>Crear País</h3>
+                <label for="new-pais-descripcion">Descripción:</label>
+                <input type="text" id="new-pais-descripcion" placeholder="Ej: Argentina" required>
+                <button type="submit">Crear País</button>
+            </form>
+
+            <button onclick="getAllPaises()">Obtener Todos los Países</button>
+            <form id="get-pais-by-id-form">
+                <h3>Obtener País por ID</h3>
+                <label for="get-pais-id">ID del País:</label>
+                <input type="text" id="get-pais-id" placeholder="Copia un ID de la respuesta anterior" required>
+                <button type="submit">Obtener País</button>
+            </form>
+
+            <form id="update-pais-form">
+                <h3>Actualizar País</h3>
+                <label for="update-pais-id">ID del País:</label>
+                <input type="text" id="update-pais-id" placeholder="ID del país a actualizar" required>
+                <label for="update-pais-descripcion">Nueva Descripción:</label>
+                <input type="text" id="update-pais-descripcion" placeholder="Ej: Nueva Argentina" required>
+                <button type="submit">Actualizar País</button>
+            </form>
+
+            <form id="delete-pais-form">
+                <h3>Eliminar País</h3>
+                <label for="delete-pais-id">ID del País:</label>
+                <input type="text" id="delete-pais-id" placeholder="ID del país a eliminar" required>
+                <button type="submit" class="delete">Eliminar País</button>
+            </form>
+
+            <div class="response-container">
+                <h4>Respuesta:</h4>
+                <pre id="paises-response"></pre>
+            </div>
+        </div>
+
+        <div class="entity-section">
+            <h2>Perfiles (<span id="perfiles-count">0</span> registros)</h2>
+            <form id="create-perfil-form">
+                <h3>Crear Perfil</h3>
+                <label for="new-perfil-descripcion">Descripción:</label>
+                <input type="text" id="new-perfil-descripcion" placeholder="Ej: Administrador" required>
+                <label for="new-perfil-habilitado">Habilitado:</label>
+                <input type="checkbox" id="new-perfil-habilitado" checked>
+                <button type="submit">Crear Perfil</button>
+            </form>
+
+            <button onclick="getAllPerfiles()">Obtener Todos los Perfiles</button>
+            <form id="get-perfil-by-id-form">
+                <h3>Obtener Perfil por ID</h3>
+                <label for="get-perfil-id">ID del Perfil:</label>
+                <input type="text" id="get-perfil-id" placeholder="Copia un ID de la respuesta anterior" required>
+                <button type="submit">Obtener Perfil</button>
+            </form>
+
+            <form id="update-perfil-form">
+                <h3>Actualizar Perfil</h3>
+                <label for="update-perfil-id">ID del Perfil:</label>
+                <input type="text" id="update-perfil-id" placeholder="ID del perfil a actualizar" required>
+                <label for="update-perfil-descripcion">Nueva Descripción:</label>
+                <input type="text" id="update-perfil-descripcion" placeholder="Ej: Super Administrador" required>
+                <label for="update-perfil-habilitado">Habilitado:</label>
+                <input type="checkbox" id="update-perfil-habilitado">
+                <button type="submit">Actualizar Perfil</button>
+            </form>
+
+            <form id="delete-perfil-form">
+                <h3>Eliminar Perfil</h3>
+                <label for="delete-perfil-id">ID del Perfil:</label>
+                <input type="text" id="delete-perfil-id" placeholder="ID del perfil a eliminar" required>
+                <button type="submit" class="delete">Eliminar Perfil</button>
+            </form>
+
+            <div class="response-container">
+                <h4>Respuesta:</h4>
+                <pre id="perfiles-response"></pre>
+            </div>
+        </div>
+
+        <div class="entity-section">
+            <h2>Items de Menú (<span id="itemsMenu-count">0</span> registros)</h2>
+            <form id="create-itemsMenu-form">
+                <h3>Crear Item de Menú</h3>
+                <label for="new-itemsMenu-descripcion">Descripción:</label>
+                <input type="text" id="new-itemsMenu-descripcion" placeholder="Ej: Gestión de Usuarios" required>
+                <label for="new-itemsMenu-habilitado">Habilitado:</label>
+                <input type="checkbox" id="new-itemsMenu-habilitado" checked>
+                <button type="submit">Crear Item de Menú</button>
+            </form>
+
+            <button onclick="getAllItemsMenu()">Obtener Todos los Items de Menú</button>
+            <form id="get-itemsMenu-by-id-form">
+                <h3>Obtener Item de Menú por ID</h3>
+                <label for="get-itemsMenu-id">ID del Item de Menú:</label>
+                <input type="text" id="get-itemsMenu-id" placeholder="Copia un ID de la respuesta anterior" required>
+                <button type="submit">Obtener Item de Menú</button>
+            </form>
+
+            <form id="update-itemsMenu-form">
+                <h3>Actualizar Item de Menú</h3>
+                <label for="update-itemsMenu-id">ID del Item de Menú:</label>
+                <input type="text" id="update-itemsMenu-id" placeholder="ID del ítem a actualizar" required>
+                <label for="update-itemsMenu-descripcion">Nueva Descripción:</label>
+                <input type="text" id="update-itemsMenu-descripcion" placeholder="Ej: Administración del Sistema"
+                    required>
+                <label for="update-itemsMenu-habilitado">Habilitado:</label>
+                <input type="checkbox" id="update-itemsMenu-habilitado">
+                <button type="submit">Actualizar Item de Menú</button>
+            </form>
+
+            <form id="delete-itemsMenu-form">
+                <h3>Eliminar Item de Menú</h3>
+                <label for="delete-itemsMenu-id">ID del Item de Menú:</label>
+                <input type="text" id="delete-itemsMenu-id" placeholder="ID del ítem a eliminar" required>
+                <button type="submit" class="delete">Eliminar Item de Menú</button>
+            </form>
+
+            <div class="response-container">
+                <h4>Respuesta:</h4>
+                <pre id="itemsMenu-response"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Define la URL base de tu API. Ajusta esto si tu backend no está en la misma ubicación.
+        // Por ejemplo: 'http://localhost:3000/api' si tu API corre en el puerto 3000.
+        const API_BASE_URL = 'http://localhost:3000/api';
+
+        /**
+         * Función genérica para realizar solicitudes fetch a la API.
+         * @param {string} url - La URL completa del endpoint.
+         * @param {string} method - El método HTTP (GET, POST, PUT, DELETE).
+         * @param {object | null} data - El cuerpo de la solicitud para POST/PUT.
+         * @param {string} responseElementId - El ID del elemento <pre> donde se mostrará la respuesta.
+         * @param {string | null} countElementId - El ID del elemento <span> para actualizar el contador de registros.
+         */
+        async function fetchData(url, method, data, responseElementId, countElementId = null) {
+            try {
+                const options = {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                };
+                if (data) {
+                    options.body = JSON.stringify(data);
+                }
+
+                const response = await fetch(url, options);
+                const result = await response.json();
+
+                // Mostrar la respuesta en el elemento <pre>
+                document.getElementById(responseElementId).textContent = JSON.stringify(result, null, 2);
+
+                // Actualizar el contador si se proporciona un ID de elemento de contador
+                // Se asume que las respuestas GET de "obtener todos" pueden venir como:
+                // 1. Un arreglo directo de objetos (ej. `[{}, {}]`)
+                // 2. Un objeto con una propiedad `registros` que es un arreglo (ej. `{ total: 2, registros: [{}, {}] }`)
+                if (countElementId) {
+                    const countElement = document.getElementById(countElementId);
+                    if (countElement) {
+                        if (result && Array.isArray(result.registros)) {
+                            countElement.textContent = result.registros.length;
+                        } else if (Array.isArray(result)) {
+                            countElement.textContent = result.length;
+                        }
+                    }
+                }
+
+            } catch (error) {
+                console.error('Error en fetchData:', error);
+                document.getElementById(responseElementId).textContent = 'Error: ' + error.message;
+                document.getElementById(responseElementId).classList.add('error-message');
+            } finally {
+                // Remove error message class after a few seconds if it was added
+                setTimeout(() => {
+                    const responseElem = document.getElementById(responseElementId);
+                    if (responseElem) {
+                        responseElem.classList.remove('error-message');
+                    }
+                }, 5000);
+            }
+        }
+
+        // --- Funciones para la Entidad Países ---
+        document.getElementById('create-pais-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const descripcion = document.getElementById('new-pais-descripcion').value;
+            await fetchData(`${API_BASE_URL}/paises`, 'POST', { descripcion }, 'paises-response');
+            getAllPaises(); // Recargar la lista después de crear
+        });
+
+        async function getAllPaises() {
+            await fetchData(`${API_BASE_URL}/paises`, 'GET', null, 'paises-response', 'paises-count');
+        }
+
+        document.getElementById('get-pais-by-id-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('get-pais-id').value;
+            await fetchData(`${API_BASE_URL}/paises/${id}`, 'GET', null, 'paises-response');
+        });
+
+        document.getElementById('update-pais-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('update-pais-id').value;
+            const descripcion = document.getElementById('update-pais-descripcion').value;
+            await fetchData(`${API_BASE_URL}/paises/${id}`, 'PUT', { descripcion }, 'paises-response');
+            getAllPaises(); // Recargar la lista después de actualizar
+        });
+
+        document.getElementById('delete-pais-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('delete-pais-id').value;
+            await fetchData(`${API_BASE_URL}/paises/${id}`, 'DELETE', null, 'paises-response');
+            getAllPaises(); // Recargar la lista después de eliminar
+        });
+
+        // --- Funciones para la Entidad Perfiles ---
+        document.getElementById('create-perfil-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const descripcion = document.getElementById('new-perfil-descripcion').value;
+            const habilitado = document.getElementById('new-perfil-habilitado').checked;
+            await fetchData(`${API_BASE_URL}/perfiles`, 'POST', { descripcion, habilitado }, 'perfiles-response');
+            getAllPerfiles();
+        });
+
+        async function getAllPerfiles() {
+            await fetchData(`${API_BASE_URL}/perfiles`, 'GET', null, 'perfiles-response', 'perfiles-count');
+        }
+
+        document.getElementById('get-perfil-by-id-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('get-perfil-id').value;
+            await fetchData(`${API_BASE_URL}/perfiles/${id}`, 'GET', null, 'perfiles-response');
+        });
+
+        document.getElementById('update-perfil-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('update-perfil-id').value;
+            const descripcion = document.getElementById('update-perfil-descripcion').value;
+            const habilitado = document.getElementById('update-perfil-habilitado').checked;
+            await fetchData(`${API_BASE_URL}/perfiles/${id}`, 'PUT', { descripcion, habilitado }, 'perfiles-response');
+            getAllPerfiles();
+        });
+
+        document.getElementById('delete-perfil-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('delete-perfil-id').value;
+            await fetchData(`${API_BASE_URL}/perfiles/${id}`, 'DELETE', null, 'perfiles-response');
+            getAllPerfiles();
+        });
+
+        // --- Funciones para la Entidad ItemsMenu ---
+        document.getElementById('create-itemsMenu-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const descripcion = document.getElementById('new-itemsMenu-descripcion').value;
+            const habilitado = document.getElementById('new-itemsMenu-habilitado').checked;
+            await fetchData(`${API_BASE_URL}/itemsMenu`, 'POST', { descripcion, habilitado }, 'itemsMenu-response');
+            getAllItemsMenu();
+        });
+
+        async function getAllItemsMenu() {
+            await fetchData(`${API_BASE_URL}/itemsMenu`, 'GET', null, 'itemsMenu-response', 'itemsMenu-count');
+        }
+
+        document.getElementById('get-itemsMenu-by-id-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('get-itemsMenu-id').value;
+            await fetchData(`${API_BASE_URL}/itemsMenu/${id}`, 'GET', null, 'itemsMenu-response');
+        });
+
+        document.getElementById('update-itemsMenu-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('update-itemsMenu-id').value;
+            const descripcion = document.getElementById('update-itemsMenu-descripcion').value;
+            const habilitado = document.getElementById('update-itemsMenu-habilitado').checked;
+            await fetchData(`${API_BASE_URL}/itemsMenu/${id}`, 'PUT', { descripcion, habilitado }, 'itemsMenu-response');
+            getAllItemsMenu();
+        });
+
+        document.getElementById('delete-itemsMenu-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('delete-itemsMenu-id').value;
+            await fetchData(`${API_BASE_URL}/itemsMenu/${id}`, 'DELETE', null, 'itemsMenu-response');
+            getAllItemsMenu();
+        });
+
+        // --- Carga inicial al cargar la página ---
+        document.addEventListener('DOMContentLoaded', () => {
+            getAllPaises();
+            getAllPerfiles();
+            getAllItemsMenu();
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const tipoArchivos_controller_1 = require("../controllers/tipoArchivos.controller");
+const router = (0, express_1.Router)();
+router.post('/', tipoArchivos_controller_1.crearTipoArchivo);
+router.get('/', tipoArchivos_controller_1.getTiposArchivos);
+router.get('/:id', tipoArchivos_controller_1.getTipoArchivoById);
+router.put('/:id', tipoArchivos_controller_1.actualizarTipoArchivo);
+router.delete('/:id', tipoArchivos_controller_1.eliminarTipoArchivo);
+exports.default = router;

@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const provincias_controller_1 = require("../controllers/provincias.controller");
+const router = (0, express_1.Router)();
+router.post('/', provincias_controller_1.crearProvincia);
+router.get('/', provincias_controller_1.getProvincias);
+router.get('/:id', provincias_controller_1.getProvinciaById);
+router.put('/:id', provincias_controller_1.actualizarProvincia);
+router.delete('/:id', provincias_controller_1.eliminarProvincia);
+exports.default = router;

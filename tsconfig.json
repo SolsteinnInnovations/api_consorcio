@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "commonjs",
+    "lib": [
+      "es2020",
+      "dom"
+    ], // Añade 'dom' si vas a usar fetch en el futuro o si tu proyecto lo requiere
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true // Permite importar archivos .json directamente
+  },
+  "include": [
+    "src/**/*"
+  ], // Incluye todos los archivos en src
+  "exclude": [
+    "node_modules",
+    "dist"
+  ] // Excluye estas carpetas
+}
