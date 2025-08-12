@@ -72,6 +72,9 @@ app.use('/api/anuncios', anuncios_routes_1.default);
 app.use('/api/actas-reuniones', actasReuniones_routes_1.default);
 app.use('/api/reservas', reservas_routes_1.default);
 app.use('/api/participantes-reuniones', participantesReuniones_routes_1.default);
+app.get('/api/ping', (req, res) => {
+    res.json({ ok: true, msg: 'pong' });
+});
 // Exportar como función para que Vercel lo maneje
 exports.default = (req, res) => {
     app(req, res);
