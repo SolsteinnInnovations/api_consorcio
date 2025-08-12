@@ -1,4 +1,4 @@
-import app from '../app';
+import app from '../src/app';
 import { VercelRequest, VercelResponse } from '@vercel/node';
 
 // Exportamos Express como función para que Vercel lo use en modo serverless
