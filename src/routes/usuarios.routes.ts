@@ -5,7 +5,9 @@ import {
     getUsuarios,
     getUsuarioById,
     actualizarUsuario,
-    eliminarUsuario
+    eliminarUsuario,
+    register,
+    login
 } from '../controllers/usuarios.controller';
 
 const router = Router();
@@ -24,5 +26,11 @@ router.put('/:id', actualizarUsuario);
 
 // Ruta para deshabilitar (eliminación lógica) un usuario por su ID
 router.delete('/:id', eliminarUsuario);
+
+// Endpoint de registro
+router.post('/register', register);
+
+// Endpoint de login
+router.post('/login', login);
 
 export default router;
