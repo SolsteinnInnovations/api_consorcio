@@ -16,7 +16,7 @@
   },
   "include": [
     "src/**/*"
-, "api"  ], // Incluye todos los archivos en src
+  ], // Incluye todos los archivos en src
   "exclude": [
     "node_modules",
     "dist"

@@ -3,8 +3,76 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = __importDefault(require("../app"));
-// Exportamos Express como función para que Vercel lo use en modo serverless
+const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
+const dotenv_1 = __importDefault(require("dotenv"));
+const database_1 = require("../config/database");
+// Importa tus rutas
+const usuarios_routes_1 = __importDefault(require("../routes/usuarios.routes"));
+const perfiles_routes_1 = __importDefault(require("../routes/perfiles.routes"));
+const parametrosConfiguraciones_routes_1 = __importDefault(require("../routes/parametrosConfiguraciones.routes"));
+const itemsMenu_routes_1 = __importDefault(require("../routes/itemsMenu.routes"));
+const permisos_routes_1 = __importDefault(require("../routes/permisos.routes"));
+const perfilesPermisos_routes_1 = __importDefault(require("../routes/perfilesPermisos.routes"));
+const paises_routes_1 = __importDefault(require("../routes/paises.routes"));
+const provincias_routes_1 = __importDefault(require("../routes/provincias.routes"));
+const localidades_routes_1 = __importDefault(require("../routes/localidades.routes"));
+const tipoMovimientos_routes_1 = __importDefault(require("../routes/tipoMovimientos.routes"));
+const tipoDocumentos_routes_1 = __importDefault(require("../routes/tipoDocumentos.routes"));
+const entidadAsociada_routes_1 = __importDefault(require("../routes/entidadAsociada.routes"));
+const tipoArchivos_routes_1 = __importDefault(require("../routes/tipoArchivos.routes"));
+const expensas_routes_1 = __importDefault(require("../routes/expensas.routes"));
+const historicoExpensas_routes_1 = __importDefault(require("../routes/historicoExpensas.routes"));
+const personas_routes_1 = __importDefault(require("../routes/personas.routes"));
+const edificios_routes_1 = __importDefault(require("../routes/edificios.routes"));
+const edificiosEncargados_routes_1 = __importDefault(require("../routes/edificiosEncargados.routes"));
+const departamentos_routes_1 = __importDefault(require("../routes/departamentos.routes"));
+const reclamos_routes_1 = __importDefault(require("../routes/reclamos.routes"));
+const reclamosDepartamentos_routes_1 = __importDefault(require("../routes/reclamosDepartamentos.routes"));
+const archivos_routes_1 = __importDefault(require("../routes/archivos.routes"));
+const cajaMovimientos_routes_1 = __importDefault(require("../routes/cajaMovimientos.routes"));
+const espaciosComunes_routes_1 = __importDefault(require("../routes/espaciosComunes.routes"));
+const anuncios_routes_1 = __importDefault(require("../routes/anuncios.routes"));
+const actasReuniones_routes_1 = __importDefault(require("../routes/actasReuniones.routes"));
+const reservas_routes_1 = __importDefault(require("../routes/reservas.routes"));
+const participantesReuniones_routes_1 = __importDefault(require("../routes/participantesReuniones.routes"));
+// Configuración de variables de entorno
+dotenv_1.default.config();
+const app = (0, express_1.default)();
+app.use((0, cors_1.default)());
+app.use(express_1.default.json());
+// Conectar a la base de datos (solo una vez)
+(0, database_1.dbConnection)();
+// Registrar rutas
+app.use('/api/usuarios', usuarios_routes_1.default);
+app.use('/api/perfiles', perfiles_routes_1.default);
+app.use('/api/parametros-configuracion', parametrosConfiguraciones_routes_1.default);
+app.use('/api/items-menu', itemsMenu_routes_1.default);
+app.use('/api/permisos', permisos_routes_1.default);
+app.use('/api/perfiles-permisos', perfilesPermisos_routes_1.default);
+app.use('/api/paises', paises_routes_1.default);
+app.use('/api/provincias', provincias_routes_1.default);
+app.use('/api/localidades', localidades_routes_1.default);
+app.use('/api/tipo-movimientos', tipoMovimientos_routes_1.default);
+app.use('/api/tipo-documentos', tipoDocumentos_routes_1.default);
+app.use('/api/entidad-asociada', entidadAsociada_routes_1.default);
+app.use('/api/tipo-archivos', tipoArchivos_routes_1.default);
+app.use('/api/expensas', expensas_routes_1.default);
+app.use('/api/historico-expensas', historicoExpensas_routes_1.default);
+app.use('/api/personas', personas_routes_1.default);
+app.use('/api/edificios', edificios_routes_1.default);
+app.use('/api/edificios-encargados', edificiosEncargados_routes_1.default);
+app.use('/api/departamentos', departamentos_routes_1.default);
+app.use('/api/reclamos', reclamos_routes_1.default);
+app.use('/api/reclamos-departamentos', reclamosDepartamentos_routes_1.default);
+app.use('/api/archivos', archivos_routes_1.default);
+app.use('/api/caja-movimientos', cajaMovimientos_routes_1.default);
+app.use('/api/espacios-comunes', espaciosComunes_routes_1.default);
+app.use('/api/anuncios', anuncios_routes_1.default);
+app.use('/api/actas-reuniones', actasReuniones_routes_1.default);
+app.use('/api/reservas', reservas_routes_1.default);
+app.use('/api/participantes-reuniones', participantesReuniones_routes_1.default);
+// Exportar como función para que Vercel lo maneje
 exports.default = (req, res) => {
-    return (0, app_1.default)(req, res);
+    app(req, res);
 };
