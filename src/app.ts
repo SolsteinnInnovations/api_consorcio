@@ -70,4 +70,9 @@ app.use('/api/actas-reuniones', actasReunionesRoutes);
 app.use('/api/reservas', reservasRoutes);
 app.use('/api/participantes-reuniones', participantesReunionesRoutes);
 
+
+app.get('/', (req, res) => {
+  res.send('Bienvenidos a la API Consorcios 🚀');
+});
+
 export default app;
