@@ -12,7 +12,7 @@ const dbConnection = async () => {
         const dbUser = process.env.DB_USER;
         const dbPassword = process.env.DB_PASSWORD;
         const dbName = process.env.DB_NAME;
-        const dbHost = 'consorciotest.z1wc3do.mongodb.net'; // Esta parte de la URL generalmente es constante para tu clúster
+        const dbHost = 'cluser-consorcio.jwf7og2.mongodb.net'; // Esta parte de la URL generalmente es constante para tu clúster
         if (!dbUser || !dbPassword || !dbName) {
             throw new Error('Faltan variables de entorno para la conexión a la base de datos (DB_USER, DB_PASSWORD, DB_NAME)');
         }

@@ -6,6 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PerfilesModel = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const perfilSchema = new mongoose_1.default.Schema({
+    nombre: {
+        type: String,
+        required: [true, 'El nombre del perfil es obligatorio'],
+        unique: true,
+    },
     descripcion: {
         type: String,
         required: [true, 'La descripción del perfil es obligatoria'],
