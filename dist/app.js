@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const database_1 = require("./config/database");
 const usuarios_routes_1 = __importDefault(require("./routes/usuarios.routes"));
+const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
 const perfiles_routes_1 = __importDefault(require("./routes/perfiles.routes"));
 const parametrosConfiguraciones_routes_1 = __importDefault(require("./routes/parametrosConfiguraciones.routes"));
 const itemsMenu_routes_1 = __importDefault(require("./routes/itemsMenu.routes"));
@@ -41,6 +42,7 @@ app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 (0, database_1.dbConnection)();
 // Rutas de mi aplicación
+app.use('/api/auth', auth_routes_1.default);
 app.use('/api/usuarios', usuarios_routes_1.default);
 app.use('/api/perfiles', perfiles_routes_1.default);
 app.use('/api/parametros-configuracion', parametrosConfiguraciones_routes_1.default);

@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { dbConnection } from './config/database';
 import usuariosRoutes from './routes/usuarios.routes';
+import authRoutes from './routes/auth.routes';
 import perfilesRoutes from './routes/perfiles.routes';
 import parametrosConfiguracionesRoutes from './routes/parametrosConfiguraciones.routes';
 import itemsMenuRoutes from './routes/itemsMenu.routes';
@@ -41,6 +42,8 @@ app.use(express.json());
 dbConnection();
 
 // Rutas de mi aplicación
+
+app.use('/api/auth', authRoutes);
 app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/perfiles', perfilesRoutes);
 app.use('/api/parametros-configuracion', parametrosConfiguracionesRoutes);

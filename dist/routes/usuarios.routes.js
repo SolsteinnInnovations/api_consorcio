@@ -14,8 +14,4 @@ router.get('/:id', usuarios_controller_1.getUsuarioById);
 router.put('/:id', usuarios_controller_1.actualizarUsuario);
 // Ruta para deshabilitar (eliminación lógica) un usuario por su ID
 router.delete('/:id', usuarios_controller_1.eliminarUsuario);
-// Endpoint de registro
-router.post('/register', usuarios_controller_1.register);
-// Endpoint de login
-router.post('/login', usuarios_controller_1.login);
 exports.default = router;
