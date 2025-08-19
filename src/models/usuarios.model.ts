@@ -8,6 +8,7 @@ export interface IUsuario extends Document {
     password?: string; // Hacemos la contraseña opcional en la interfaz para poder trabajar con ella sin incluirla siempre.
     habilitado?: boolean;
     idPerfil: mongoose.Types.ObjectId; // Referencia a la entidad Perfiles
+    idEdificio?: mongoose.Types.ObjectId; // Referencia opcional a la entidad Edificios
 }
 
 const usuarioSchema = new mongoose.Schema<IUsuario>({

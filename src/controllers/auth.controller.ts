@@ -5,10 +5,11 @@ import jwt from 'jsonwebtoken';
 // Actualiza la importación del modelo
 import { UsuariosModel, IUsuario } from '../models/usuarios.model';
 import { PerfilesModel } from '../models/perfiles.model'; // Necesitamos el modelo de Perfiles para validar
+import { EdificiosModel } from '../models/edificios.model'; // Importa el modelo de Edificios
 
 
 const register = async (req: Request, res: Response) => {
-    const { login, password, idPerfil } = req.body;
+    const { login, password, idPerfil, idEdificio } = req.body;
 
     try {
         // Verifica si el login ya existe
@@ -29,6 +30,15 @@ const register = async (req: Request, res: Response) => {
             });
         }
 
+        // Verifica si el edificio existe
+        const existeEdificio = await EdificiosModel.findById(idEdificio);
+        if (!existeEdificio) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'El ID de edificio proporcionado no existe.'
+            });
+        }
+
         // Hashea la contraseña
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(password, salt);
@@ -37,7 +47,8 @@ const register = async (req: Request, res: Response) => {
         const usuario = new UsuariosModel({
             login,
             password: hashedPassword,
-            idPerfil
+            idPerfil,
+            idEdificio // Guarda el idEdificio en el usuario
         });
 
         await usuario.save();
@@ -48,7 +59,8 @@ const register = async (req: Request, res: Response) => {
             usuario: {
                 id: usuario._id,
                 login: usuario.login,
-                idPerfil: usuario.idPerfil
+                idPerfil: usuario.idPerfil,
+                idEdificio: usuario.idEdificio
             }
         });
 
