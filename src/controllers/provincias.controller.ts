@@ -1,11 +1,34 @@
 import { Request, Response } from 'express';
 import { ProvinciasModel, IProvincia } from '../models/provincias.model';
 import { PaisesModel } from '../models/paises.model'; // Para validar idPais
+import { ProvinciasBulk } from '../services/ProvinciaService';
+
+const bulkCrearProvincia = async (req: Request, res: Response ) => {
+    try{
+        
+        await ProvinciasModel.syncIndexes();
+        await ProvinciasBulk();
+         res.status(201).json({
+            ok: true,
+            msg: 'Provincia creada exitosamente',
+            
+        });
+    }catch(error){
+        console.error("Error al insertar provincias:", error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al insertar provincias',
+            error
+        });
+        return;
+    }
+   
+}
 
 const crearProvincia = async (req: Request, res: Response) => {
-    const { descripcion, idPais } = req.body;
+    const { nombre, idPais } = req.body;
     try {
-        const existeProvincia = await ProvinciasModel.findOne({ descripcion });
+        const existeProvincia = await ProvinciasModel.findOne({ nombre });
         if (existeProvincia) {
             return res.status(400).json({
                 ok: false,
@@ -38,7 +61,7 @@ const crearProvincia = async (req: Request, res: Response) => {
 
 const getProvincias = async (req: Request, res: Response) => {
     try {
-        const provincias = await ProvinciasModel.find().populate('idPais', 'descripcion');
+        const provincias = await ProvinciasModel.find().populate('idPais', 'nombre');
         res.status(200).json({
             ok: true,
             provincias
@@ -55,7 +78,7 @@ const getProvincias = async (req: Request, res: Response) => {
 const getProvinciaById = async (req: Request, res: Response) => {
     const id = req.params.id;
     try {
-        const provincia = await ProvinciasModel.findById(id).populate('idPais', 'descripcion');
+        const provincia = await ProvinciasModel.findById(id).populate('idPais', 'nombre');
         if (!provincia) {
             return res.status(404).json({
                 ok: false,
@@ -77,7 +100,7 @@ const getProvinciaById = async (req: Request, res: Response) => {
 
 const actualizarProvincia = async (req: Request, res: Response) => {
     const id = req.params.id;
-    const { descripcion, idPais, ...campos } = req.body;
+    const { nombre, idPais, ...campos } = req.body;
     try {
         const provinciaDB = await ProvinciasModel.findById(id);
         if (!provinciaDB) {
@@ -87,15 +110,15 @@ const actualizarProvincia = async (req: Request, res: Response) => {
             });
         }
 
-        if (descripcion && descripcion !== provinciaDB.descripcion) {
-            const existeDescripcion = await ProvinciasModel.findOne({ descripcion });
+        if (nombre && nombre !== provinciaDB.nombre) {
+            const existeDescripcion = await ProvinciasModel.findOne({ nombre });
             if (existeDescripcion) {
                 return res.status(400).json({
                     ok: false,
                     msg: 'Ya existe una provincia con esa descripción.'
                 });
             }
-            campos.descripcion = descripcion;
+            campos.nombre = nombre;
         }
 
         if (idPais && String(idPais) !== String(provinciaDB.idPais)) {
@@ -154,5 +177,6 @@ export {
     getProvincias,
     getProvinciaById,
     actualizarProvincia,
-    eliminarProvincia
+    eliminarProvincia,
+    bulkCrearProvincia
 };

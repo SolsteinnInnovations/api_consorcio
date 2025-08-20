@@ -1,5 +1,26 @@
 import { Request, Response } from 'express';
 import { PaisesModel, IPais } from '../models/paises.model';
+import { createPaises } from '../services/PaisService';
+
+const seedPais = async(req: Request, res: Response) => {
+
+  try {   
+    
+        await PaisesModel.syncIndexes();
+        await createPaises()
+        res.status(201).json({
+            ok: true,
+            msg: 'Países creados exitosamente',
+            
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al insertar países:', error
+        });
+    }
+}
 
 const crearPais = async (req: Request, res: Response) => {
     const { descripcion } = req.body;
@@ -68,7 +89,7 @@ const getPaisById = async (req: Request, res: Response) => {
 
 const actualizarPais = async (req: Request, res: Response) => {
     const id = req.params.id;
-    const { descripcion, ...campos } = req.body;
+    const { nombre, ...campos } = req.body;
     try {
         const paisDB = await PaisesModel.findById(id);
         if (!paisDB) {
@@ -77,15 +98,15 @@ const actualizarPais = async (req: Request, res: Response) => {
                 msg: 'País no encontrado por ID.'
             });
         }
-        if (descripcion && descripcion !== paisDB.descripcion) {
-            const existeDescripcion = await PaisesModel.findOne({ descripcion });
+        if (nombre && nombre !== paisDB.nombre) {
+            const existeDescripcion = await PaisesModel.findOne({ nombre });
             if (existeDescripcion) {
                 return res.status(400).json({
                     ok: false,
                     msg: 'Ya existe un país con esa descripción.'
                 });
             }
-            campos.descripcion = descripcion;
+            campos.nombre = nombre;
         }
         const paisActualizado = await PaisesModel.findByIdAndUpdate(id, campos, { new: true });
         res.status(200).json({
@@ -132,5 +153,6 @@ export {
     getPaises,
     getPaisById,
     actualizarPais,
-    eliminarPais
+    eliminarPais,
+    seedPais
 };

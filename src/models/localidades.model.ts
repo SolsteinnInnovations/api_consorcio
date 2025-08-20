@@ -2,13 +2,13 @@ import mongoose, { Document, Schema } from 'mongoose';
 import { ProvinciasModel } from './provincias.model'; // Importa el modelo de Provincias
 
 export interface ILocalidad extends Document {
-    descripcion: string;
+    nombre: string;
     codigoPostal: string;
     idProvincia: mongoose.Types.ObjectId; // Referencia a Provincias
 }
 
 const localidadSchema = new mongoose.Schema<ILocalidad>({
-    descripcion: {
+    nombre: {
         type: String,
         required: [true, 'La descripción de la localidad es obligatoria'],
         unique: true // Asumo que el nombre de la localidad es único

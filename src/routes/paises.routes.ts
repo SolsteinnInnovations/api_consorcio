@@ -4,12 +4,14 @@ import {
     getPaises,
     getPaisById,
     actualizarPais,
-    eliminarPais
+    eliminarPais,
+    seedPais
 } from '../controllers/paises.controller';
 
 const router = Router();
 
 router.post('/', crearPais);
+router.post('/seed', seedPais);
 router.get('/', getPaises);
 router.get('/:id', getPaisById);
 router.put('/:id', actualizarPais);

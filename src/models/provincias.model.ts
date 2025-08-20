@@ -2,14 +2,14 @@ import mongoose, { Document, Schema } from 'mongoose';
 import { PaisesModel } from './paises.model'; // Importa el modelo de Paises
 
 export interface IProvincia extends Document {
-    descripcion: string;
+    nombre: string;
     idPais: mongoose.Types.ObjectId; // Referencia a Paises
 }
 
 const provinciaSchema = new mongoose.Schema<IProvincia>({
-    descripcion: {
+    nombre: {
         type: String,
-        required: [true, 'La descripción de la provincia es obligatoria'],
+        required: [true, 'El nombre de la provincia es obligatoria'],
         unique: true // Asumo que el nombre de la provincia es único
     },
     idPais: {

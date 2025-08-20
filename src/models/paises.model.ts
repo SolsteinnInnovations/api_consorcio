@@ -1,13 +1,13 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IPais extends Document {
-    descripcion: string;
+    nombre: string;
 }
 
 const paisSchema = new mongoose.Schema<IPais>({
-    descripcion: {
+    nombre: {
         type: String,
-        required: [true, 'La descripción del país es obligatoria'],
+        required: [true, 'El nombre del país es obligatoria'],
         unique: true
     }
 });
