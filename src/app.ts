@@ -38,7 +38,7 @@ const app = express();
 
 // Configuración de CORS recomendada
 app.use(cors({
-  origin: ['https://tudominio.com', 'http://localhost:3000'], // Cambia por tus dominios permitidos
+  origin: ['http://localhost:4200', 'http://localhost:3000', 'http://localhost:3001'], // Cambia por tus dominios permitidos
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
