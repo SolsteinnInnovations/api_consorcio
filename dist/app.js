@@ -38,7 +38,12 @@ const participantesReuniones_routes_1 = __importDefault(require("./routes/partic
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)());
+// Configuración de CORS recomendada
+app.use((0, cors_1.default)({
+    origin: ['https://tudominio.com', 'http://localhost:3000'], // Cambia por tus dominios permitidos
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
 app.use(express_1.default.json());
 (0, database_1.dbConnection)();
 // Rutas de mi aplicación

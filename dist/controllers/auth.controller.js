@@ -9,8 +9,9 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 // Actualiza la importación del modelo
 const usuarios_model_1 = require("../models/usuarios.model");
 const perfiles_model_1 = require("../models/perfiles.model"); // Necesitamos el modelo de Perfiles para validar
+const edificios_model_1 = require("../models/edificios.model"); // Importa el modelo de Edificios
 const register = async (req, res) => {
-    const { login, password, idPerfil } = req.body;
+    const { login, password, idPerfil, idEdificio } = req.body;
     try {
         // Verifica si el login ya existe
         const existeLogin = await usuarios_model_1.UsuariosModel.findOne({ login });
@@ -28,6 +29,14 @@ const register = async (req, res) => {
                 msg: 'El ID de perfil proporcionado no existe.'
             });
         }
+        // Verifica si el edificio existe
+        const existeEdificio = await edificios_model_1.EdificiosModel.findById(idEdificio);
+        if (!existeEdificio) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'El ID de edificio proporcionado no existe.'
+            });
+        }
         // Hashea la contraseña
         const salt = bcryptjs_1.default.genSaltSync(10);
         const hashedPassword = bcryptjs_1.default.hashSync(password, salt);
@@ -35,7 +44,8 @@ const register = async (req, res) => {
         const usuario = new usuarios_model_1.UsuariosModel({
             login,
             password: hashedPassword,
-            idPerfil
+            idPerfil,
+            idEdificio // Guarda el idEdificio en el usuario
         });
         await usuario.save();
         res.status(201).json({
@@ -44,7 +54,8 @@ const register = async (req, res) => {
             usuario: {
                 id: usuario._id,
                 login: usuario.login,
-                idPerfil: usuario.idPerfil
+                idPerfil: usuario.idPerfil,
+                idEdificio: usuario.idEdificio
             }
         });
     }

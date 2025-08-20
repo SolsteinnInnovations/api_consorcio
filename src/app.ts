@@ -36,7 +36,13 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
+// Configuración de CORS recomendada
+app.use(cors({
+  origin: ['https://tudominio.com', 'http://localhost:3000'], // Cambia por tus dominios permitidos
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
+
 app.use(express.json());
 
 dbConnection();
