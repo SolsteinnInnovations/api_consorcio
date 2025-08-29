@@ -36,9 +36,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsuariosModel = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const usuarioSchema = new mongoose_1.default.Schema({
-    login: {
+    email: {
         type: String,
-        required: [true, 'El login es obligatorio'],
+        required: [true, 'El email es obligatorio'],
         unique: true,
     },
     password: {
@@ -52,6 +52,11 @@ const usuarioSchema = new mongoose_1.default.Schema({
     idPerfil: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: 'Perfiles', // ¡IMPORTANTE! Asegúrate de que este 'Perfiles' coincida con el nombre del modelo que exportaste.
+        required: [true, 'El perfil es obligatorio'],
+    },
+    idEdificio: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'Edificios', // ¡IMPORTANTE! Asegúrate de que este 'Perfiles' coincida con el nombre del modelo que exportaste.
         required: [true, 'El perfil es obligatorio'],
     },
 });

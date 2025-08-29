@@ -1,6 +1,6 @@
 import mongoose, { Document } from 'mongoose';
 export interface IUsuario extends Document {
-    login: string;
+    email: string;
     password?: string;
     habilitado?: boolean;
     idPerfil: mongoose.Types.ObjectId;

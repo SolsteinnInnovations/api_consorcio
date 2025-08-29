@@ -4,7 +4,8 @@ declare global {
     namespace Express {
         interface Request {
             usuario?: IUsuario;
+            token?: string;
         }
     }
 }
-export declare const validRole: (...rolesPermitidos: string[]) => (req: Request, res: Response, next: NextFunction) => Response<any, Record<string, any>> | undefined;
+export declare const validProfile: (...perfilesPermitidos: string[]) => (req: Request, res: Response, next: NextFunction) => Response<any, Record<string, any>> | undefined;

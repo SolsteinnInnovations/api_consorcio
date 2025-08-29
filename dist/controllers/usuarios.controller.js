@@ -10,14 +10,14 @@ const usuarios_model_1 = require("../models/usuarios.model");
 const perfiles_model_1 = require("../models/perfiles.model"); // Necesitamos el modelo de Perfiles para validar
 // --- Crear un nuevo Usuario ---
 const crearUsuario = async (req, res) => {
-    const { login, password, idPerfil } = req.body;
+    const { email, password, idPerfil } = req.body;
     try {
-        // 1. Verificar si el login ya existe
-        const existeLogin = await usuarios_model_1.UsuariosModel.findOne({ login });
+        // 1. Verificar si el email ya existe
+        const existeLogin = await usuarios_model_1.UsuariosModel.findOne({ email });
         if (existeLogin) {
             return res.status(400).json({
                 ok: false,
-                msg: 'El login ya está registrado.'
+                msg: 'El email ya está registrado.'
             });
         }
         // 2. Verificar si el idPerfil es válido y existe
@@ -32,7 +32,7 @@ const crearUsuario = async (req, res) => {
         const salt = bcryptjs_1.default.genSaltSync(10);
         const hashedPassword = bcryptjs_1.default.hashSync(password, salt);
         const usuario = new usuarios_model_1.UsuariosModel({
-            login,
+            email,
             password: hashedPassword,
             idPerfil
         }); // Usa UsuariosModel
@@ -42,7 +42,7 @@ const crearUsuario = async (req, res) => {
             msg: 'Usuario creado exitosamente',
             usuario: {
                 id: usuario._id,
-                login: usuario.login,
+                email: usuario.email,
                 idPerfil: usuario.idPerfil
             }
         });
@@ -104,7 +104,7 @@ exports.getUsuarioById = getUsuarioById;
 // --- Actualizar un Usuario ---
 const actualizarUsuario = async (req, res) => {
     const id = req.params.id;
-    const { login, idPerfil, ...campos } = req.body; // Extraemos login, idPerfil y el resto de campos
+    const { email, idPerfil, ...campos } = req.body; // Extraemos login, idPerfil y el resto de campos
     try {
         const usuarioDB = await usuarios_model_1.UsuariosModel.findById(id); // Usa UsuariosModel
         if (!usuarioDB) {
@@ -114,15 +114,15 @@ const actualizarUsuario = async (req, res) => {
             });
         }
         // Si se intenta cambiar el login, verificar que el nuevo login no exista
-        if (login && login !== usuarioDB.login) {
-            const existeLogin = await usuarios_model_1.UsuariosModel.findOne({ login }); // Usa UsuariosModel
+        if (email && email !== usuarioDB.email) {
+            const existeLogin = await usuarios_model_1.UsuariosModel.findOne({ email }); // Usa UsuariosModel
             if (existeLogin) {
                 return res.status(400).json({
                     ok: false,
-                    msg: 'El nuevo login ya está registrado por otro usuario.'
+                    msg: 'El nuevo email ya está registrado por otro usuario.'
                 });
             }
-            campos.login = login;
+            campos.email = email;
         }
         // Si se intenta cambiar el perfil, verificar que el nuevo idPerfil sea válido
         if (idPerfil && idPerfil !== String(usuarioDB.idPerfil)) { // Convertir a string para comparar ObjectId

@@ -5,6 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
+const dotenv_1 = __importDefault(require("dotenv"));
+const jwt_1 = require("./config/jwt");
 const database_1 = require("./config/database");
 const usuarios_routes_1 = __importDefault(require("./routes/usuarios.routes"));
 const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
@@ -35,7 +37,7 @@ const anuncios_routes_1 = __importDefault(require("./routes/anuncios.routes"));
 const actasReuniones_routes_1 = __importDefault(require("./routes/actasReuniones.routes"));
 const reservas_routes_1 = __importDefault(require("./routes/reservas.routes"));
 const participantesReuniones_routes_1 = __importDefault(require("./routes/participantesReuniones.routes"));
-const dotenv_1 = __importDefault(require("dotenv"));
+const seed_routes_1 = __importDefault(require("./routes/seed.routes"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 // Configuración de CORS recomendada
@@ -48,6 +50,8 @@ app.use(express_1.default.json());
 (0, database_1.dbConnection)();
 // Rutas de mi aplicación
 app.use('/api/auth', auth_routes_1.default);
+app.use('/api/seed', seed_routes_1.default);
+app.use(jwt_1.authenticateUser);
 app.use('/api/usuarios', usuarios_routes_1.default);
 app.use('/api/perfiles', perfiles_routes_1.default);
 app.use('/api/parametros-configuracion', parametrosConfiguraciones_routes_1.default);

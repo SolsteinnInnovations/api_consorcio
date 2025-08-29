@@ -44,7 +44,7 @@ const permisoSchema = new mongoose_1.default.Schema({
     idItemMenu: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: 'ItemsMenu', // Debe coincidir con el nombre del modelo de ItemsMenu
-        required: [true, 'El ítem de menú asociado es obligatorio']
+        required: [false, 'El ítem de menú asociado es obligatorio']
     }
 });
 permisoSchema.set('toJSON', {

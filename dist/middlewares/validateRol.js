@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validRole = void 0;
-const validRole = (...rolesPermitidos) => {
+exports.validProfile = void 0;
+const validProfile = (...perfilesPermitidos) => {
     return (req, res, next) => {
-        if (rolesPermitidos.includes(req.usuario?.idPerfil?.toString())) {
+        if (perfilesPermitidos.includes(req.usuario?.idPerfil?.toString())) {
             return res.status(403).json({
                 ok: false,
                 msg: 'No tiene permisos para realizar esta acción'
@@ -12,5 +12,5 @@ const validRole = (...rolesPermitidos) => {
         next();
     };
 };
-exports.validRole = validRole;
+exports.validProfile = validProfile;
 //# sourceMappingURL=validateRol.js.map
