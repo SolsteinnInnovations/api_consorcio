@@ -1,6 +1,7 @@
 
 import { Request, Response, NextFunction } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { UsuariosModel } from '../models/usuarios.model';
 
 
 export const generateToken = (payload:JwtPayload) => {
@@ -13,22 +14,31 @@ export const verifyToken =(payload:string) => {
     return jwt.verify(payload,process.env.JWT_SECRET!)
 }
 
+export const authenticateUser = async (req: Request, res: Response, next: NextFunction) => {
+  const token = req.header('Authorization')?.replace('Bearer ', '');
 
-export const authenticateUser = (req: Request, res: Response, next: NextFunction) : void => {
-    const token = req.header('Authorization')?.replace('Bearer ', '');
+  if (!token) {
+    return res.status(401).json({ message: 'No token provided' });
+  }
 
-    if (!token) {
-        res.status(401).json({ message: 'No token provided' });
-        return ;
+  try {
+    const decoded = verifyToken(token);
+
+    
+    let user;
+    if (typeof decoded === 'object' && 'uid' in decoded) {
+      user = await UsuariosModel.findById((decoded as JwtPayload).uid).select('-password');
+    } else {
+      return res.status(401).json({ message: 'Invalid token payload' });
+    }
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid token user' });
     }
 
-    try {
-        const decoded = jwt.verify(token, process.env.SECRET_JWT_KEY!,{
-            algorithms: ['HS256'],        
-        });
-        req.token = decoded.toString(); // Casting req to any to add user property
-        next();
-    } catch (error) {
-        res.status(401).json({ message: 'Invalid token' });
-    }
+    req.user = user; 
+    next();
+
+  } catch (error) {
+    return res.status(401).json({ message: 'Invalid token' });
+  }
 };

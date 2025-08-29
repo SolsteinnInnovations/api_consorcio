@@ -2,6 +2,15 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
+// Extiende la interfaz Request para incluir 'user'
+declare global {
+    namespace Express {
+        interface Request {
+            user?: IUsuario;
+        }
+    }
+}
+
 // Actualiza la importación del modelo
 import { UsuariosModel, IUsuario } from '../models/usuarios.model';
 import { PerfilesModel } from '../models/perfiles.model'; // Necesitamos el modelo de Perfiles para validar
@@ -9,15 +18,16 @@ import { EdificiosModel } from '../models/edificios.model'; // Importa el modelo
 
 
 const register = async (req: Request, res: Response) => {
-    const { login, password, idPerfil, idEdificio } = req.body;
+    const { email, password, idPerfil, idEdificio } = req.body;
     
     try {
+        // Registra usuario
         // Verifica si el login ya existe
-        const existeLogin = await UsuariosModel.findOne({ login });
-        if (existeLogin) {
+        const existeEmail = await UsuariosModel.findOne({ email });
+        if (existeEmail) {
             return res.status(400).json({
                 ok: false,
-                msg: 'El login ya está registrado.'
+                msg: 'El email ya está registrado.'
             });
         }
 
@@ -45,20 +55,24 @@ const register = async (req: Request, res: Response) => {
 
         // Crea el usuario
         const usuario = new UsuariosModel({
-            login,
+            email,
             password: hashedPassword,
             idPerfil,
             idEdificio // Guarda el idEdificio en el usuario
         });
 
-        await usuario.save();
+        await usuario.save();   
 
+        // registra la persona
+
+
+        
         res.status(201).json({
             ok: true,
             msg: 'Usuario registrado exitosamente',
             usuario: {
                 id: usuario._id,
-                login: usuario.login,
+                email: usuario.email,
                 idPerfil: usuario.idPerfil,
                 idEdificio: usuario.idEdificio
             }
@@ -75,11 +89,11 @@ const register = async (req: Request, res: Response) => {
 
 // --- Login de usuario ---
 const login = async (req: Request, res: Response) => {
-    const { login, password } = req.body;
+    const { email, password } = req.body;
 
     try {
         // Busca el usuario por login
-        const usuario = await UsuariosModel.findOne({ login });
+        const usuario = await UsuariosModel.findOne({ email});
         if (!usuario) {
             return res.status(400).json({
                 ok: false,
@@ -106,17 +120,18 @@ const login = async (req: Request, res: Response) => {
 
         // Genera un JWT (cambia 'secret' por tu clave secreta real)
         const token = jwt.sign(
-            { uid: usuario._id, login: usuario.login, idPerfil: usuario.idPerfil, idEdificio: usuario.idEdificio },
+            { uid: usuario._id, email: usuario.email, idPerfil: usuario.idPerfil, idEdificio: usuario.idEdificio },
             process.env.JWT_SECRET! ,
             { expiresIn: '8h' }
         );
 
+        
         res.status(200).json({
             ok: true,
             msg: 'Login exitoso',
             usuario: {
                 id: usuario._id,
-                login: usuario.login,
+                email: usuario.email,
                 idPerfil: usuario.idPerfil,
                 idEdificio: usuario.idEdificio
             },

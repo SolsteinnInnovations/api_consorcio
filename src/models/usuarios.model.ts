@@ -4,7 +4,7 @@ import mongoose, { Document, Schema } from 'mongoose';
 import { PerfilesModel } from './perfiles.model';
 
 export interface IUsuario extends Document {
-    login: string;
+    email: string;
     password?: string; // Hacemos la contraseña opcional en la interfaz para poder trabajar con ella sin incluirla siempre.
     habilitado?: boolean;
     idPerfil: mongoose.Types.ObjectId; // Referencia a la entidad Perfiles
@@ -12,9 +12,9 @@ export interface IUsuario extends Document {
 }
 
 const usuarioSchema = new mongoose.Schema<IUsuario>({
-    login: {
+    email: {
         type: String,
-        required: [true, 'El login es obligatorio'],
+        required: [true, 'El email es obligatorio'],
         unique: true,
     },
     password: {
