@@ -4,53 +4,58 @@ exports.eliminarAnuncio = exports.actualizarAnuncio = exports.getAnuncioById = e
 const anuncios_model_1 = require("../models/anuncios.model");
 const edificios_model_1 = require("../models/edificios.model");
 const crearAnuncio = async (req, res) => {
-    const { identificacion, idEdificio } = req.body;
+    const { identificacion, ...restoBody } = req.body;
+    const { idEdificio } = req.user;
     try {
         const existeAnuncio = await anuncios_model_1.AnunciosModel.findOne({ identificacion });
         if (existeAnuncio) {
             return res.status(400).json({
                 ok: false,
-                msg: 'Ya existe un anuncio con esa identificación.'
+                msg: "Ya existe un anuncio con esa identificación.",
             });
         }
         const existeEdificio = await edificios_model_1.EdificiosModel.findById(idEdificio);
         if (!existeEdificio) {
             return res.status(400).json({
                 ok: false,
-                msg: 'El ID de edificio proporcionado no existe.'
+                msg: "El ID de edificio proporcionado no existe.",
             });
         }
-        const anuncio = new anuncios_model_1.AnunciosModel(req.body);
+        // Crear el anuncio usando el idEdificio del usuario
+        const anuncio = new anuncios_model_1.AnunciosModel({
+            ...restoBody,
+            identificacion,
+            idEdificio,
+        });
         await anuncio.save();
         res.status(201).json({
             ok: true,
-            msg: 'Anuncio creado exitosamente',
-            anuncio
+            msg: "Anuncio creado exitosamente",
+            anuncio,
         });
     }
     catch (error) {
         console.error(error);
         res.status(500).json({
             ok: false,
-            msg: 'Hable con el administrador: error al crear el anuncio.'
+            msg: "Hable con el administrador: error al crear el anuncio.",
         });
     }
 };
 exports.crearAnuncio = crearAnuncio;
 const getAnuncios = async (req, res) => {
     try {
-        const anuncios = await anuncios_model_1.AnunciosModel.find()
-            .populate('idEdificio', 'direccion identificadorEdificio');
+        const anuncios = await anuncios_model_1.AnunciosModel.find().populate("idEdificio", "direccion identificadorEdificio");
         res.status(200).json({
             ok: true,
-            anuncios
+            anuncios,
         });
     }
     catch (error) {
         console.error(error);
         res.status(500).json({
             ok: false,
-            msg: 'Hable con el administrador: error al obtener los anuncios.'
+            msg: "Hable con el administrador: error al obtener los anuncios.",
         });
     }
 };
@@ -58,24 +63,23 @@ exports.getAnuncios = getAnuncios;
 const getAnuncioById = async (req, res) => {
     const id = req.params.id;
     try {
-        const anuncio = await anuncios_model_1.AnunciosModel.findById(id)
-            .populate('idEdificio', 'direccion identificadorEdificio');
+        const anuncio = await anuncios_model_1.AnunciosModel.findById(id).populate("idEdificio", "direccion identificadorEdificio");
         if (!anuncio) {
             return res.status(404).json({
                 ok: false,
-                msg: 'Anuncio no encontrado por ID.'
+                msg: "Anuncio no encontrado por ID.",
             });
         }
         res.status(200).json({
             ok: true,
-            anuncio
+            anuncio,
         });
     }
     catch (error) {
         console.error(error);
         res.status(500).json({
             ok: false,
-            msg: 'Hable con el administrador: error al obtener el anuncio.'
+            msg: "Hable con el administrador: error al obtener el anuncio.",
         });
     }
 };
@@ -88,15 +92,17 @@ const actualizarAnuncio = async (req, res) => {
         if (!anuncioDB) {
             return res.status(404).json({
                 ok: false,
-                msg: 'Anuncio no encontrado por ID.'
+                msg: "Anuncio no encontrado por ID.",
             });
         }
         if (identificacion && identificacion !== anuncioDB.identificacion) {
-            const existeIdentificacion = await anuncios_model_1.AnunciosModel.findOne({ identificacion });
+            const existeIdentificacion = await anuncios_model_1.AnunciosModel.findOne({
+                identificacion,
+            });
             if (existeIdentificacion) {
                 return res.status(400).json({
                     ok: false,
-                    msg: 'Ya existe un anuncio con esa identificación.'
+                    msg: "Ya existe un anuncio con esa identificación.",
                 });
             }
             campos.identificacion = identificacion;
@@ -106,7 +112,7 @@ const actualizarAnuncio = async (req, res) => {
             if (!existeEdificio) {
                 return res.status(400).json({
                     ok: false,
-                    msg: 'El ID de edificio proporcionado no existe.'
+                    msg: "El ID de edificio proporcionado no existe.",
                 });
             }
             campos.idEdificio = idEdificio;
@@ -114,15 +120,15 @@ const actualizarAnuncio = async (req, res) => {
         const anuncioActualizado = await anuncios_model_1.AnunciosModel.findByIdAndUpdate(id, campos, { new: true });
         res.status(200).json({
             ok: true,
-            msg: 'Anuncio actualizado exitosamente',
-            anuncio: anuncioActualizado
+            msg: "Anuncio actualizado exitosamente",
+            anuncio: anuncioActualizado,
         });
     }
     catch (error) {
         console.error(error);
         res.status(500).json({
             ok: false,
-            msg: 'Hable con el administrador: error al actualizar el anuncio.'
+            msg: "Hable con el administrador: error al actualizar el anuncio.",
         });
     }
 };
@@ -134,19 +140,19 @@ const eliminarAnuncio = async (req, res) => {
         if (!anuncioBorrado) {
             return res.status(404).json({
                 ok: false,
-                msg: 'Anuncio no encontrado por ID.'
+                msg: "Anuncio no encontrado por ID.",
             });
         }
         res.status(200).json({
             ok: true,
-            msg: 'Anuncio eliminado exitosamente.'
+            msg: "Anuncio eliminado exitosamente.",
         });
     }
     catch (error) {
         console.error(error);
         res.status(500).json({
             ok: false,
-            msg: 'Hable con el administrador: error al eliminar el anuncio.'
+            msg: "Hable con el administrador: error al eliminar el anuncio.",
         });
     }
 };
