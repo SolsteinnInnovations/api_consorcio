@@ -25,13 +25,13 @@ const crearPersona = async (req: Request, res: Response) => {
             });
         }
 
-        const existeTipoDocumento = await TipoDocumentosModel.findById(idTipoDocumento);
-        if (!existeTipoDocumento) {
-            return res.status(400).json({
-                ok: false,
-                msg: 'El ID de tipo de documento proporcionado no existe.'
-            });
-        }
+        // const existeTipoDocumento = await TipoDocumentosModel.findById(idTipoDocumento);
+        // if (!existeTipoDocumento) {
+        //     return res.status(400).json({
+        //         ok: false,
+        //         msg: 'El ID de tipo de documento proporcionado no existe.'
+        //     });
+        // }
 
         if (idLocalidad) {
             const existeLocalidad = await LocalidadesModel.findById(idLocalidad);
@@ -44,6 +44,7 @@ const crearPersona = async (req: Request, res: Response) => {
         }
 
         if (idUsuario) {
+
             const existeUsuario = await UsuariosModel.findById(idUsuario);
             if (!existeUsuario) {
                 return res.status(400).json({
@@ -51,6 +52,7 @@ const crearPersona = async (req: Request, res: Response) => {
                     msg: 'El ID de usuario proporcionado no existe.'
                 });
             }
+
             const usuarioYaAsociado = await PersonasModel.findOne({ idUsuario });
             if (usuarioYaAsociado) {
                 return res.status(400).json({

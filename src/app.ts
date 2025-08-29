@@ -35,17 +35,14 @@ import actasReunionesRoutes from './routes/actasReuniones.routes';
 import reservasRoutes from './routes/reservas.routes';
 import participantesReunionesRoutes from './routes/participantesReuniones.routes';
 import seedRoutes from './routes/seed.routes';
+import { corsConfig } from './config/cors';
 
 dotenv.config();
 
 const app = express();
 
 // Configuración de CORS recomendada
-app.use(cors({
-  origin: ['http://localhost:4200', 'http://localhost:3000', 'http://localhost:3001'], // Cambia por tus dominios permitidos
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
-}));
+app.use(cors(corsConfig));
 
 app.use(express.json());
 

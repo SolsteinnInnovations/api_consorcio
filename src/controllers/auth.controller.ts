@@ -15,6 +15,7 @@ declare global {
 import { UsuariosModel, IUsuario } from '../models/usuarios.model';
 import { PerfilesModel } from '../models/perfiles.model'; // Necesitamos el modelo de Perfiles para validar
 import { EdificiosModel } from '../models/edificios.model'; // Importa el modelo de Edificios
+import { PersonasModel } from '../models/personas.model';
 
 
 const register = async (req: Request, res: Response) => {
@@ -62,7 +63,9 @@ const register = async (req: Request, res: Response) => {
         });
 
         await usuario.save();   
-
+        await PersonasModel.create({
+            idUsuario: usuario._id
+        })
         // registra la persona
 
 

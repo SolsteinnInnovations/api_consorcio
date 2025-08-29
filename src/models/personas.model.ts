@@ -4,16 +4,16 @@ import { LocalidadesModel } from './localidades.model';     // Ya existente
 import { UsuariosModel } from './usuarios.model';         // Ya existente
 
 export interface IPersona extends Document {
-    nombres: string;
-    apellidos: string;
+    nombres?: string;
+    apellidos?: string;
     correoElectronico?: string;
-    idTipoDocumento: mongoose.Types.ObjectId;
+    idTipoDocumento?: mongoose.Types.ObjectId;
     documento: string;
     telefono?: string;
     direccion?: string;
     idLocalidad?: mongoose.Types.ObjectId;
-    encargado: boolean; // Indica si la persona es encargada de un edificio
-    idUsuario?: mongoose.Types.ObjectId; // Referencia al usuario asociado (puede ser null)
+    encargado?: boolean; // Indica si la persona es encargada de un edificio
+    idUsuario?: mongoose.Types.ObjectId; // Referencia al usuario asociado (puede ser null) 
 }
 
 const personaSchema = new mongoose.Schema<IPersona>({
@@ -23,7 +23,7 @@ const personaSchema = new mongoose.Schema<IPersona>({
     },
     apellidos: {
         type: String,
-        required: [true, 'Los apellidos son obligatorios']
+        required: [false, 'Los apellidos son obligatorios']
     },
     correoElectronico: {
         type: String,
@@ -36,11 +36,11 @@ const personaSchema = new mongoose.Schema<IPersona>({
     idTipoDocumento: {
         type: Schema.Types.ObjectId,
         ref: 'TipoDocumentos',
-        required: [true, 'El tipo de documento es obligatorio']
+        required: [false, 'El tipo de documento es obligatorio']
     },
     documento: {
         type: String,
-        required: [true, 'El número de documento es obligatorio'],
+        required: [false, 'El número de documento es obligatorio'],
         unique: true
     },
     telefono: {

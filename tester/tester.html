@@ -219,49 +219,7 @@
             </div>
         </div>
 
-        <div class="entity-section">
-            <h2>Items de Menú (<span id="itemsMenu-count">0</span> registros)</h2>
-            <form id="create-itemsMenu-form">
-                <h3>Crear Item de Menú</h3>
-                <label for="new-itemsMenu-descripcion">Descripción:</label>
-                <input type="text" id="new-itemsMenu-descripcion" placeholder="Ej: Gestión de Usuarios" required>
-                <label for="new-itemsMenu-habilitado">Habilitado:</label>
-                <input type="checkbox" id="new-itemsMenu-habilitado" checked>
-                <button type="submit">Crear Item de Menú</button>
-            </form>
-
-            <button onclick="getAllItemsMenu()">Obtener Todos los Items de Menú</button>
-            <form id="get-itemsMenu-by-id-form">
-                <h3>Obtener Item de Menú por ID</h3>
-                <label for="get-itemsMenu-id">ID del Item de Menú:</label>
-                <input type="text" id="get-itemsMenu-id" placeholder="Copia un ID de la respuesta anterior" required>
-                <button type="submit">Obtener Item de Menú</button>
-            </form>
-
-            <form id="update-itemsMenu-form">
-                <h3>Actualizar Item de Menú</h3>
-                <label for="update-itemsMenu-id">ID del Item de Menú:</label>
-                <input type="text" id="update-itemsMenu-id" placeholder="ID del ítem a actualizar" required>
-                <label for="update-itemsMenu-descripcion">Nueva Descripción:</label>
-                <input type="text" id="update-itemsMenu-descripcion" placeholder="Ej: Administración del Sistema"
-                    required>
-                <label for="update-itemsMenu-habilitado">Habilitado:</label>
-                <input type="checkbox" id="update-itemsMenu-habilitado">
-                <button type="submit">Actualizar Item de Menú</button>
-            </form>
-
-            <form id="delete-itemsMenu-form">
-                <h3>Eliminar Item de Menú</h3>
-                <label for="delete-itemsMenu-id">ID del Item de Menú:</label>
-                <input type="text" id="delete-itemsMenu-id" placeholder="ID del ítem a eliminar" required>
-                <button type="submit" class="delete">Eliminar Item de Menú</button>
-            </form>
-
-            <div class="response-container">
-                <h4>Respuesta:</h4>
-                <pre id="itemsMenu-response"></pre>
-            </div>
-        </div>
+        
     </div>
 
     <script>
@@ -279,10 +237,12 @@
          */
         async function fetchData(url, method, data, responseElementId, countElementId = null) {
             try {
+                const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2OGIxZjYxMzI5Yjk1Y2IyMmRlZDIxNTEiLCJlbWFpbCI6InVzdWFyaW8uYWRtaW5pc3RyYWRvcjFAZ21haWwuY29tIiwiaWRQZXJmaWwiOiI2OGIxZjYxMjI5Yjk1Y2IyMmRlZDIwZjQiLCJpZEVkaWZpY2lvIjoiNjhiMWY2MTMyOWI5NWNiMjJkZWQyMTQ1IiwiaWF0IjoxNzU2NDkzMzgzLCJleHAiOjE3NTY1MjIxODN9.HpwOC1KhCg0BfFOJ5d04J9Jajme_cq_oW_zTkeDnxgI'
                 const options = {
-                    method: method,
+                    method,
                     headers: {
                         'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`  
                     },
                 };
                 if (data) {
@@ -393,46 +353,13 @@
             getAllPerfiles();
         });
 
-        // --- Funciones para la Entidad ItemsMenu ---
-        document.getElementById('create-itemsMenu-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const descripcion = document.getElementById('new-itemsMenu-descripcion').value;
-            const habilitado = document.getElementById('new-itemsMenu-habilitado').checked;
-            await fetchData(`${API_BASE_URL}/itemsMenu`, 'POST', { descripcion, habilitado }, 'itemsMenu-response');
-            getAllItemsMenu();
-        });
-
-        async function getAllItemsMenu() {
-            await fetchData(`${API_BASE_URL}/itemsMenu`, 'GET', null, 'itemsMenu-response', 'itemsMenu-count');
-        }
-
-        document.getElementById('get-itemsMenu-by-id-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const id = document.getElementById('get-itemsMenu-id').value;
-            await fetchData(`${API_BASE_URL}/itemsMenu/${id}`, 'GET', null, 'itemsMenu-response');
-        });
-
-        document.getElementById('update-itemsMenu-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const id = document.getElementById('update-itemsMenu-id').value;
-            const descripcion = document.getElementById('update-itemsMenu-descripcion').value;
-            const habilitado = document.getElementById('update-itemsMenu-habilitado').checked;
-            await fetchData(`${API_BASE_URL}/itemsMenu/${id}`, 'PUT', { descripcion, habilitado }, 'itemsMenu-response');
-            getAllItemsMenu();
-        });
-
-        document.getElementById('delete-itemsMenu-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const id = document.getElementById('delete-itemsMenu-id').value;
-            await fetchData(`${API_BASE_URL}/itemsMenu/${id}`, 'DELETE', null, 'itemsMenu-response');
-            getAllItemsMenu();
-        });
+        
 
         // --- Carga inicial al cargar la página ---
         document.addEventListener('DOMContentLoaded', () => {
             getAllPaises();
             getAllPerfiles();
-            getAllItemsMenu();
+          
         });
 
     </script>
