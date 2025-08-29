@@ -9,3 +9,4 @@ router.get('/:id', tipoDocumentos_controller_1.getTipoDocumentoById);
 router.put('/:id', tipoDocumentos_controller_1.actualizarTipoDocumento);
 router.delete('/:id', tipoDocumentos_controller_1.eliminarTipoDocumento);
 exports.default = router;
+//# sourceMappingURL=tipoDocumentos.routes.js.map

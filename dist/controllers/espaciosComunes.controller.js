@@ -159,3 +159,4 @@ const eliminarEspacioComun = async (req, res) => {
     }
 };
 exports.eliminarEspacioComun = eliminarEspacioComun;
+//# sourceMappingURL=espaciosComunes.controller.js.map

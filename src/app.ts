@@ -1,6 +1,10 @@
 import express from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
+
+import { authenticateUser } from './config/jwt';
 import { dbConnection } from './config/database';
+
 import usuariosRoutes from './routes/usuarios.routes';
 import authRoutes from './routes/auth.routes';
 import perfilesRoutes from './routes/perfiles.routes';
@@ -30,7 +34,7 @@ import anunciosRoutes from './routes/anuncios.routes';
 import actasReunionesRoutes from './routes/actasReuniones.routes';
 import reservasRoutes from './routes/reservas.routes';
 import participantesReunionesRoutes from './routes/participantesReuniones.routes';
-import dotenv from 'dotenv';
+import seedRoutes from './routes/seed.routes';
 
 dotenv.config();
 
@@ -50,6 +54,9 @@ dbConnection();
 // Rutas de mi aplicación
 
 app.use('/api/auth', authRoutes);
+app.use('/api/seed',seedRoutes)
+app.use(authenticateUser);
+
 app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/perfiles', perfilesRoutes);
 app.use('/api/parametros-configuracion', parametrosConfiguracionesRoutes);

@@ -9,3 +9,4 @@ router.get('/:id', actasReuniones_controller_1.getActaReunionById);
 router.put('/:id', actasReuniones_controller_1.actualizarActaReunion);
 router.delete('/:id', actasReuniones_controller_1.eliminarActaReunion);
 exports.default = router;
+//# sourceMappingURL=actasReuniones.routes.js.map

@@ -253,3 +253,4 @@ const eliminarPersona = async (req, res) => {
     }
 };
 exports.eliminarPersona = eliminarPersona;
+//# sourceMappingURL=personas.controller.js.map

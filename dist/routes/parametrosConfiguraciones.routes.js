@@ -15,3 +15,4 @@ router.put('/:id', parametrosConfiguraciones_controller_1.actualizarParametroCon
 // Ruta para eliminar un parámetro de configuración por su ID (borrado físico)
 router.delete('/:id', parametrosConfiguraciones_controller_1.eliminarParametroConfiguracion);
 exports.default = router;
+//# sourceMappingURL=parametrosConfiguraciones.routes.js.map

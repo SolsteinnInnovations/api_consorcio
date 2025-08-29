@@ -1,12 +1,43 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.eliminarLocalidad = exports.actualizarLocalidad = exports.getLocalidadById = exports.getLocalidades = exports.crearLocalidad = void 0;
+exports.crearLocalidadBulk = exports.eliminarLocalidad = exports.actualizarLocalidad = exports.getLocalidadById = exports.getLocalidades = exports.crearLocalidad = void 0;
 const localidades_model_1 = require("../models/localidades.model");
 const provincias_model_1 = require("../models/provincias.model"); // Para validar idProvincia
-const crearLocalidad = async (req, res) => {
-    const { descripcion, codigoPostal, idProvincia } = req.body;
+const LocalidadService_1 = require("../services/LocalidadService");
+const crearLocalidadBulk = async (req, res) => {
     try {
-        const existeLocalidad = await localidades_model_1.LocalidadesModel.findOne({ descripcion });
+        await localidades_model_1.LocalidadesModel.syncIndexes();
+        await (0, LocalidadService_1.localidadBulk)();
+        res.status(201).json({
+            ok: true,
+            msg: 'Localidades creadas exitosamente',
+        });
+    }
+    catch (error) {
+        console.error("Error al insertar localidades:", error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Hable con el administrador: error al crear la localidad.'
+        });
+    }
+};
+exports.crearLocalidadBulk = crearLocalidadBulk;
+const crearLocalidad = async (req, res) => {
+    const { nombre, codigoPostal, idProvincia } = req.body;
+    try {
+        if (!nombre || !codigoPostal || !idProvincia) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Los campos nombre, código postal e idProvincia son obligatorios.'
+            });
+        }
+        if (isNaN(+codigoPostal)) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'El código postal debe ser un número.'
+            });
+        }
+        const existeLocalidad = await localidades_model_1.LocalidadesModel.findOne({ nombre });
         if (existeLocalidad) {
             return res.status(400).json({
                 ok: false,
@@ -21,6 +52,7 @@ const crearLocalidad = async (req, res) => {
             });
         }
         const localidad = new localidades_model_1.LocalidadesModel(req.body);
+        localidad.nombre = nombre.toUpperCase(); // Asegura que el nombre esté en mayúsculas
         await localidad.save();
         res.status(201).json({
             ok: true,
@@ -39,11 +71,11 @@ const crearLocalidad = async (req, res) => {
 exports.crearLocalidad = crearLocalidad;
 const getLocalidades = async (req, res) => {
     try {
-        const localidades = await localidades_model_1.LocalidadesModel.find().populate('idProvincia', 'descripcion').populate({
+        const localidades = await localidades_model_1.LocalidadesModel.find().populate('idProvincia', 'nombre').populate({
             path: 'idProvincia',
             populate: {
                 path: 'idPais',
-                select: 'descripcion'
+                select: 'nombre'
             }
         });
         res.status(200).json({
@@ -63,11 +95,11 @@ exports.getLocalidades = getLocalidades;
 const getLocalidadById = async (req, res) => {
     const id = req.params.id;
     try {
-        const localidad = await localidades_model_1.LocalidadesModel.findById(id).populate('idProvincia', 'descripcion').populate({
+        const localidad = await localidades_model_1.LocalidadesModel.findById(id).populate('idProvincia', 'nombre').populate({
             path: 'idProvincia',
             populate: {
                 path: 'idPais',
-                select: 'descripcion'
+                select: 'nombre'
             }
         });
         if (!localidad) {
@@ -92,7 +124,7 @@ const getLocalidadById = async (req, res) => {
 exports.getLocalidadById = getLocalidadById;
 const actualizarLocalidad = async (req, res) => {
     const id = req.params.id;
-    const { descripcion, idProvincia, ...campos } = req.body;
+    const { nombre, idProvincia, ...campos } = req.body;
     try {
         const localidadDB = await localidades_model_1.LocalidadesModel.findById(id);
         if (!localidadDB) {
@@ -101,15 +133,15 @@ const actualizarLocalidad = async (req, res) => {
                 msg: 'Localidad no encontrada por ID.'
             });
         }
-        if (descripcion && descripcion !== localidadDB.descripcion) {
-            const existeDescripcion = await localidades_model_1.LocalidadesModel.findOne({ descripcion });
+        if (nombre && nombre !== localidadDB.nombre) {
+            const existeDescripcion = await localidades_model_1.LocalidadesModel.findOne({ nombre });
             if (existeDescripcion) {
                 return res.status(400).json({
                     ok: false,
                     msg: 'Ya existe una localidad con esa descripción.'
                 });
             }
-            campos.descripcion = descripcion;
+            campos.nombre = nombre;
         }
         if (idProvincia && String(idProvincia) !== String(localidadDB.idProvincia)) {
             const existeProvincia = await provincias_model_1.ProvinciasModel.findById(idProvincia);
@@ -161,3 +193,4 @@ const eliminarLocalidad = async (req, res) => {
     }
 };
 exports.eliminarLocalidad = eliminarLocalidad;
+//# sourceMappingURL=localidades.controller.js.map

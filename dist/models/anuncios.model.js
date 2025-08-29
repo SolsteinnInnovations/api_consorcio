@@ -71,3 +71,4 @@ anuncioSchema.set('toJSON', {
     },
 });
 exports.AnunciosModel = mongoose_1.default.model('Anuncios', anuncioSchema, 'anuncios');
+//# sourceMappingURL=anuncios.model.js.map

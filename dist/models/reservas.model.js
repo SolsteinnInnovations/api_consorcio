@@ -103,3 +103,4 @@ reservaSchema.set('toJSON', {
     },
 });
 exports.ReservasModel = mongoose_1.default.model('Reservas', reservaSchema, 'reservas');
+//# sourceMappingURL=reservas.model.js.map

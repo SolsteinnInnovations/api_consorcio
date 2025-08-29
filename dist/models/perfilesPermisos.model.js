@@ -61,3 +61,4 @@ perfilesPermisosSchema.set('toJSON', {
     },
 });
 exports.PerfilesPermisosModel = mongoose_1.default.model('PerfilesPermisos', perfilesPermisosSchema, 'perfilesPermisos');
+//# sourceMappingURL=perfilesPermisos.model.js.map

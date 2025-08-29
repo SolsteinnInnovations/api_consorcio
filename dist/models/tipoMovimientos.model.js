@@ -55,3 +55,4 @@ tipoMovimientoSchema.set('toJSON', {
     },
 });
 exports.TipoMovimientosModel = mongoose_1.default.model('TipoMovimientos', tipoMovimientoSchema, 'tipoMovimientos');
+//# sourceMappingURL=tipoMovimientos.model.js.map

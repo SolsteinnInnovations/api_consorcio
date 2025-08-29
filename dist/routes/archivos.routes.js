@@ -9,3 +9,4 @@ router.get('/:id', archivos_controller_1.getArchivoById);
 router.put('/:id', archivos_controller_1.actualizarArchivo);
 router.delete('/:id', archivos_controller_1.eliminarArchivo);
 exports.default = router;
+//# sourceMappingURL=archivos.routes.js.map

@@ -8,3 +8,4 @@ router.post('/register', auth_controller_1.register);
 // Endpoint de login
 router.post('/login', auth_controller_1.login);
 exports.default = router;
+//# sourceMappingURL=auth.routes.js.map

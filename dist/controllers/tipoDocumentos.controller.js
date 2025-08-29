@@ -131,3 +131,4 @@ const eliminarTipoDocumento = async (req, res) => {
     }
 };
 exports.eliminarTipoDocumento = eliminarTipoDocumento;
+//# sourceMappingURL=tipoDocumentos.controller.js.map

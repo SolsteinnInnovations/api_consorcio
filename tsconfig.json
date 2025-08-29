@@ -12,7 +12,9 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true // Permite importar archivos .json directamente
+    "resolveJsonModule": true, // Permite importar archivos .json directamente,
+    "sourceMap": true,
+    "declaration": true
   },
   "include": [
     "src/**/*"

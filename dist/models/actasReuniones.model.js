@@ -65,3 +65,4 @@ actaReunionSchema.set('toJSON', {
     },
 });
 exports.ActasReunionesModel = mongoose_1.default.model('ActasReuniones', actaReunionSchema, 'actasReuniones');
+//# sourceMappingURL=actasReuniones.model.js.map

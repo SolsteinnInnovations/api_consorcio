@@ -11,3 +11,4 @@ router.delete('/:id', cajaMovimientos_controller_1.eliminarCajaMovimiento);
 // Nueva ruta para obtener el saldo de caja por edificio
 router.get('/saldo-por-edificio/:idEdificio', cajaMovimientos_controller_1.getSaldoCajaByEdificio);
 exports.default = router;
+//# sourceMappingURL=cajaMovimientos.routes.js.map

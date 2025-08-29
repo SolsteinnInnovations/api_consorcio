@@ -7,3 +7,4 @@ const app_1 = __importDefault(require("../app")); // Importa la instancia de app
 exports.default = (req, res) => {
     (0, app_1.default)(req, res);
 };
+//# sourceMappingURL=index.js.map

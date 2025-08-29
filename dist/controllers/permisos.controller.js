@@ -149,3 +149,4 @@ const eliminarPermiso = async (req, res) => {
     }
 };
 exports.eliminarPermiso = eliminarPermiso;
+//# sourceMappingURL=permisos.controller.js.map

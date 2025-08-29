@@ -3,7 +3,7 @@ import { ItemsMenuModel } from './itemsMenu.model'; // Importa el modelo de Item
 
 export interface IPermiso extends Document {
     descripcion: string;
-    idItemMenu: mongoose.Types.ObjectId; // Referencia a ItemsMenu
+    idItemMenu?: mongoose.Types.ObjectId; // Referencia a ItemsMenu
 }
 
 const permisoSchema = new mongoose.Schema<IPermiso>({
@@ -15,7 +15,7 @@ const permisoSchema = new mongoose.Schema<IPermiso>({
     idItemMenu: {
         type: Schema.Types.ObjectId,
         ref: 'ItemsMenu', // Debe coincidir con el nombre del modelo de ItemsMenu
-        required: [true, 'El ítem de menú asociado es obligatorio']
+        required: [false, 'El ítem de menú asociado es obligatorio']
     }
 });
 

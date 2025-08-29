@@ -248,3 +248,4 @@ const eliminarReserva = async (req, res) => {
     }
 };
 exports.eliminarReserva = eliminarReserva;
+//# sourceMappingURL=reservas.controller.js.map

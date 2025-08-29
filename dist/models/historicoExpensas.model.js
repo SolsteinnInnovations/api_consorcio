@@ -67,3 +67,4 @@ historicoExpensaSchema.set('toJSON', {
     },
 });
 exports.HistoricoExpensasModel = mongoose_1.default.model('HistoricoExpensas', historicoExpensaSchema, 'historicoExpensas');
+//# sourceMappingURL=historicoExpensas.model.js.map

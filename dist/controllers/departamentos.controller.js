@@ -217,3 +217,4 @@ const eliminarDepartamento = async (req, res) => {
     }
 };
 exports.eliminarDepartamento = eliminarDepartamento;
+//# sourceMappingURL=departamentos.controller.js.map

@@ -114,3 +114,4 @@ const eliminarParticipanteReunion = async (req, res) => {
     }
 };
 exports.eliminarParticipanteReunion = eliminarParticipanteReunion;
+//# sourceMappingURL=participantesReuniones.controller.js.map

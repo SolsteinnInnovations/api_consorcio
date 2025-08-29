@@ -9,3 +9,4 @@ router.get('/:id', tipoMovimientos_controller_1.getTipoMovimientoById);
 router.put('/:id', tipoMovimientos_controller_1.actualizarTipoMovimiento);
 router.delete('/:id', tipoMovimientos_controller_1.eliminarTipoMovimiento);
 exports.default = router;
+//# sourceMappingURL=tipoMovimientos.routes.js.map

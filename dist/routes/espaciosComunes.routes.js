@@ -9,3 +9,4 @@ router.get('/:id', espaciosComunes_controller_1.getEspacioComunById);
 router.put('/:id', espaciosComunes_controller_1.actualizarEspacioComun);
 router.delete('/:id', espaciosComunes_controller_1.eliminarEspacioComun);
 exports.default = router;
+//# sourceMappingURL=espaciosComunes.routes.js.map

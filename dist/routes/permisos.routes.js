@@ -9,3 +9,4 @@ router.get('/:id', permisos_controller_1.getPermisoById);
 router.put('/:id', permisos_controller_1.actualizarPermiso);
 router.delete('/:id', permisos_controller_1.eliminarPermiso);
 exports.default = router;
+//# sourceMappingURL=permisos.routes.js.map

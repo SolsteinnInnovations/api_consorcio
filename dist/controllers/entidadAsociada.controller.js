@@ -131,3 +131,4 @@ const eliminarEntidadAsociada = async (req, res) => {
     }
 };
 exports.eliminarEntidadAsociada = eliminarEntidadAsociada;
+//# sourceMappingURL=entidadAsociada.controller.js.map

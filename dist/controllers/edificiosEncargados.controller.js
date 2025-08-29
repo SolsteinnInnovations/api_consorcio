@@ -120,3 +120,4 @@ const eliminarEdificioEncargado = async (req, res) => {
     }
 };
 exports.eliminarEdificioEncargado = eliminarEdificioEncargado;
+//# sourceMappingURL=edificiosEncargados.controller.js.map

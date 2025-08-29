@@ -197,3 +197,4 @@ const eliminarArchivo = async (req, res) => {
     }
 };
 exports.eliminarArchivo = eliminarArchivo;
+//# sourceMappingURL=archivos.controller.js.map

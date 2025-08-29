@@ -137,3 +137,4 @@ const eliminarParametroConfiguracion = async (req, res) => {
     }
 };
 exports.eliminarParametroConfiguracion = eliminarParametroConfiguracion;
+//# sourceMappingURL=parametrosConfiguraciones.controller.js.map

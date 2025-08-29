@@ -55,3 +55,4 @@ permisoSchema.set('toJSON', {
     },
 });
 exports.PermisosModel = mongoose_1.default.model('Permisos', permisoSchema, 'permisos');
+//# sourceMappingURL=permisos.model.js.map

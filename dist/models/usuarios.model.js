@@ -65,3 +65,4 @@ usuarioSchema.set('toJSON', {
 });
 // Cambiar 'UsuarioModel' a 'UsuariosModel' y 'Usuario' a 'Usuarios' en el nombre de la colección
 exports.UsuariosModel = mongoose_1.default.model('Usuarios', usuarioSchema);
+//# sourceMappingURL=usuarios.model.js.map

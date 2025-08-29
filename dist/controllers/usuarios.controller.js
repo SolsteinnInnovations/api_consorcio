@@ -180,3 +180,4 @@ const eliminarUsuario = async (req, res) => {
     }
 };
 exports.eliminarUsuario = eliminarUsuario;
+//# sourceMappingURL=usuarios.controller.js.map

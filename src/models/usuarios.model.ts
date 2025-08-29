@@ -30,6 +30,11 @@ const usuarioSchema = new mongoose.Schema<IUsuario>({
         ref: 'Perfiles', // ¡IMPORTANTE! Asegúrate de que este 'Perfiles' coincida con el nombre del modelo que exportaste.
         required: [true, 'El perfil es obligatorio'],
     },
+    idEdificio:{
+        type: Schema.Types.ObjectId,
+        ref: 'Edificios', // ¡IMPORTANTE! Asegúrate de que este 'Perfiles' coincida con el nombre del modelo que exportaste.
+        required: [true, 'El perfil es obligatorio'],
+    },
 });
 
 usuarioSchema.set('toJSON', {

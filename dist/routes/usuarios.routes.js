@@ -15,3 +15,4 @@ router.put('/:id', usuarios_controller_1.actualizarUsuario);
 // Ruta para deshabilitar (eliminación lógica) un usuario por su ID
 router.delete('/:id', usuarios_controller_1.eliminarUsuario);
 exports.default = router;
+//# sourceMappingURL=usuarios.routes.js.map

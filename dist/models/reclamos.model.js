@@ -75,3 +75,4 @@ reclamoSchema.set('toJSON', {
     },
 });
 exports.ReclamosModel = mongoose_1.default.model('Reclamos', reclamoSchema, 'reclamos');
+//# sourceMappingURL=reclamos.model.js.map

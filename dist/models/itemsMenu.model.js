@@ -24,3 +24,4 @@ itemMenuSchema.set('toJSON', {
     },
 });
 exports.ItemsMenuModel = mongoose_1.default.model('ItemsMenu', itemMenuSchema, 'itemsMenu');
+//# sourceMappingURL=itemsMenu.model.js.map

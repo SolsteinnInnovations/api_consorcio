@@ -183,3 +183,4 @@ const eliminarPerfilPermiso = async (req, res) => {
     }
 };
 exports.eliminarPerfilPermiso = eliminarPerfilPermiso;
+//# sourceMappingURL=perfilesPermisos.controller.js.map

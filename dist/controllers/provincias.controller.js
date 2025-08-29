@@ -1,12 +1,33 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.eliminarProvincia = exports.actualizarProvincia = exports.getProvinciaById = exports.getProvincias = exports.crearProvincia = void 0;
+exports.bulkCrearProvincia = exports.eliminarProvincia = exports.actualizarProvincia = exports.getProvinciaById = exports.getProvincias = exports.crearProvincia = void 0;
 const provincias_model_1 = require("../models/provincias.model");
 const paises_model_1 = require("../models/paises.model"); // Para validar idPais
-const crearProvincia = async (req, res) => {
-    const { descripcion, idPais } = req.body;
+const ProvinciaService_1 = require("../services/ProvinciaService");
+const bulkCrearProvincia = async (req, res) => {
     try {
-        const existeProvincia = await provincias_model_1.ProvinciasModel.findOne({ descripcion });
+        await provincias_model_1.ProvinciasModel.syncIndexes();
+        await (0, ProvinciaService_1.ProvinciasBulk)();
+        res.status(201).json({
+            ok: true,
+            msg: 'Provincia creada exitosamente',
+        });
+    }
+    catch (error) {
+        console.error("Error al insertar provincias:", error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al insertar provincias',
+            error
+        });
+        return;
+    }
+};
+exports.bulkCrearProvincia = bulkCrearProvincia;
+const crearProvincia = async (req, res) => {
+    const { nombre, idPais } = req.body;
+    try {
+        const existeProvincia = await provincias_model_1.ProvinciasModel.findOne({ nombre });
         if (existeProvincia) {
             return res.status(400).json({
                 ok: false,
@@ -39,7 +60,7 @@ const crearProvincia = async (req, res) => {
 exports.crearProvincia = crearProvincia;
 const getProvincias = async (req, res) => {
     try {
-        const provincias = await provincias_model_1.ProvinciasModel.find().populate('idPais', 'descripcion');
+        const provincias = await provincias_model_1.ProvinciasModel.find().populate('idPais', 'nombre');
         res.status(200).json({
             ok: true,
             provincias
@@ -57,7 +78,7 @@ exports.getProvincias = getProvincias;
 const getProvinciaById = async (req, res) => {
     const id = req.params.id;
     try {
-        const provincia = await provincias_model_1.ProvinciasModel.findById(id).populate('idPais', 'descripcion');
+        const provincia = await provincias_model_1.ProvinciasModel.findById(id).populate('idPais', 'nombre');
         if (!provincia) {
             return res.status(404).json({
                 ok: false,
@@ -80,7 +101,7 @@ const getProvinciaById = async (req, res) => {
 exports.getProvinciaById = getProvinciaById;
 const actualizarProvincia = async (req, res) => {
     const id = req.params.id;
-    const { descripcion, idPais, ...campos } = req.body;
+    const { nombre, idPais, ...campos } = req.body;
     try {
         const provinciaDB = await provincias_model_1.ProvinciasModel.findById(id);
         if (!provinciaDB) {
@@ -89,15 +110,15 @@ const actualizarProvincia = async (req, res) => {
                 msg: 'Provincia no encontrada por ID.'
             });
         }
-        if (descripcion && descripcion !== provinciaDB.descripcion) {
-            const existeDescripcion = await provincias_model_1.ProvinciasModel.findOne({ descripcion });
+        if (nombre && nombre !== provinciaDB.nombre) {
+            const existeDescripcion = await provincias_model_1.ProvinciasModel.findOne({ nombre });
             if (existeDescripcion) {
                 return res.status(400).json({
                     ok: false,
                     msg: 'Ya existe una provincia con esa descripción.'
                 });
             }
-            campos.descripcion = descripcion;
+            campos.nombre = nombre;
         }
         if (idPais && String(idPais) !== String(provinciaDB.idPais)) {
             const existePais = await paises_model_1.PaisesModel.findById(idPais);
@@ -151,3 +172,4 @@ const eliminarProvincia = async (req, res) => {
     }
 };
 exports.eliminarProvincia = eliminarProvincia;
+//# sourceMappingURL=provincias.controller.js.map

@@ -134,3 +134,4 @@ const eliminarActaReunion = async (req, res) => {
     }
 };
 exports.eliminarActaReunion = eliminarActaReunion;
+//# sourceMappingURL=actasReuniones.controller.js.map

@@ -71,3 +71,4 @@ archivoSchema.set('toJSON', {
     },
 });
 exports.ArchivosModel = mongoose_1.default.model('Archivos', archivoSchema, 'archivos');
+//# sourceMappingURL=archivos.model.js.map

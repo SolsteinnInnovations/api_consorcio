@@ -9,3 +9,4 @@ router.get('/:id', reclamos_controller_1.getReclamoById);
 router.put('/:id', reclamos_controller_1.actualizarReclamo);
 router.delete('/:id', reclamos_controller_1.eliminarReclamo);
 exports.default = router;
+//# sourceMappingURL=reclamos.routes.js.map

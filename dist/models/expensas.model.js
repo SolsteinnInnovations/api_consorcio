@@ -63,3 +63,4 @@ expensaSchema.set('toJSON', {
     },
 });
 exports.ExpensasModel = mongoose_1.default.model('Expensas', expensaSchema, 'expensas');
+//# sourceMappingURL=expensas.model.js.map

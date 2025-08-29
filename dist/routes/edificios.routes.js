@@ -9,3 +9,4 @@ router.get('/:id', edificios_controller_1.getEdificioById);
 router.put('/:id', edificios_controller_1.actualizarEdificio);
 router.delete('/:id', edificios_controller_1.eliminarEdificio);
 exports.default = router;
+//# sourceMappingURL=edificios.routes.js.map

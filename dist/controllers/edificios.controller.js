@@ -171,3 +171,4 @@ const eliminarEdificio = async (req, res) => {
     }
 };
 exports.eliminarEdificio = eliminarEdificio;
+//# sourceMappingURL=edificios.controller.js.map

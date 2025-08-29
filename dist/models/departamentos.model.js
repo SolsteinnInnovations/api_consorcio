@@ -75,3 +75,4 @@ departamentoSchema.set('toJSON', {
     },
 });
 exports.DepartamentosModel = mongoose_1.default.model('Departamentos', departamentoSchema, 'departamentos');
+//# sourceMappingURL=departamentos.model.js.map

@@ -169,3 +169,4 @@ const eliminarTipoMovimiento = async (req, res) => {
     }
 };
 exports.eliminarTipoMovimiento = eliminarTipoMovimiento;
+//# sourceMappingURL=tipoMovimientos.controller.js.map

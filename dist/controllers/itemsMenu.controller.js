@@ -134,3 +134,4 @@ const eliminarItemMenu = async (req, res) => {
     }
 };
 exports.eliminarItemMenu = eliminarItemMenu;
+//# sourceMappingURL=itemsMenu.controller.js.map

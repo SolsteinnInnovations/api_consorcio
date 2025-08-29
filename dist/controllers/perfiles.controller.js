@@ -140,3 +140,4 @@ const eliminarPerfil = async (req, res) => {
     }
 };
 exports.eliminarPerfil = eliminarPerfil;
+//# sourceMappingURL=perfiles.controller.js.map

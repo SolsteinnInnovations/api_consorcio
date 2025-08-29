@@ -9,3 +9,4 @@ router.get('/:id', entidadAsociada_controller_1.getEntidadAsociadaById);
 router.put('/:id', entidadAsociada_controller_1.actualizarEntidadAsociada);
 router.delete('/:id', entidadAsociada_controller_1.eliminarEntidadAsociada);
 exports.default = router;
+//# sourceMappingURL=entidadAsociada.routes.js.map

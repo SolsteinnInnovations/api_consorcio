@@ -9,3 +9,4 @@ router.get('/:id', anuncios_controller_1.getAnuncioById);
 router.put('/:id', anuncios_controller_1.actualizarAnuncio);
 router.delete('/:id', anuncios_controller_1.eliminarAnuncio);
 exports.default = router;
+//# sourceMappingURL=anuncios.routes.js.map

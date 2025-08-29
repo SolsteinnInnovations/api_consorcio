@@ -61,3 +61,4 @@ edificioSchema.set('toJSON', {
     },
 });
 exports.EdificiosModel = mongoose_1.default.model('Edificios', edificioSchema, 'edificios');
+//# sourceMappingURL=edificios.model.js.map

@@ -162,3 +162,4 @@ const eliminarExpensa = async (req, res) => {
     }
 };
 exports.eliminarExpensa = eliminarExpensa;
+//# sourceMappingURL=expensas.controller.js.map

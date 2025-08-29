@@ -57,3 +57,4 @@ participantesReunionesSchema.set('toJSON', {
     },
 });
 exports.ParticipantesReunionesModel = mongoose_1.default.model('ParticipantesReuniones', participantesReunionesSchema, 'participantesReuniones');
+//# sourceMappingURL=participantesReuniones.model.js.map

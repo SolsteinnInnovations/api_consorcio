@@ -57,3 +57,4 @@ edificiosEncargadosSchema.set('toJSON', {
     },
 });
 exports.EdificiosEncargadosModel = mongoose_1.default.model('EdificiosEncargados', edificiosEncargadosSchema, 'edificiosEncargados');
+//# sourceMappingURL=edificiosEncargados.model.js.map

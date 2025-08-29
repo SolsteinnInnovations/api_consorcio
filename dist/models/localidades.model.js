@@ -36,7 +36,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LocalidadesModel = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const localidadSchema = new mongoose_1.default.Schema({
-    descripcion: {
+    nombre: {
         type: String,
         required: [true, 'La descripción de la localidad es obligatoria'],
         unique: true // Asumo que el nombre de la localidad es único
@@ -59,3 +59,4 @@ localidadSchema.set('toJSON', {
     },
 });
 exports.LocalidadesModel = mongoose_1.default.model('Localidades', localidadSchema, 'localidades');
+//# sourceMappingURL=localidades.model.js.map

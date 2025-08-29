@@ -57,3 +57,4 @@ reclamosDepartamentosSchema.set('toJSON', {
     },
 });
 exports.ReclamosDepartamentosModel = mongoose_1.default.model('ReclamosDepartamentos', reclamosDepartamentosSchema, 'reclamosDepartamentos');
+//# sourceMappingURL=reclamosDepartamentos.model.js.map

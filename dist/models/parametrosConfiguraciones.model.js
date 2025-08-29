@@ -64,3 +64,4 @@ ParametroConfiguracionSchema.set('toJSON', {
 });
 // Cambiar 'ParametroConfiguracionModel' a 'ParametrosConfiguracionesModel' y 'ParametroConfiguracion' a 'ParametrosConfiguraciones' en el nombre de la colección
 exports.ParametrosConfiguracionesModel = mongoose_1.default.model('ParametrosConfiguracion', ParametroConfiguracionSchema, 'parametrosconfiguraciones');
+//# sourceMappingURL=parametrosConfiguraciones.model.js.map

@@ -65,3 +65,4 @@ espacioComunSchema.set('toJSON', {
     },
 });
 exports.EspaciosComunesModel = mongoose_1.default.model('EspaciosComunes', espacioComunSchema, 'espaciosComunes');
+//# sourceMappingURL=espaciosComunes.model.js.map

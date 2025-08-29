@@ -155,3 +155,4 @@ const eliminarHistoricoExpensa = async (req, res) => {
     }
 };
 exports.eliminarHistoricoExpensa = eliminarHistoricoExpensa;
+//# sourceMappingURL=historicoExpensas.controller.js.map

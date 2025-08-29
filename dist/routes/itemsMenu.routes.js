@@ -9,3 +9,4 @@ router.get('/:id', itemsMenu_controller_1.getItemMenuById);
 router.put('/:id', itemsMenu_controller_1.actualizarItemMenu);
 router.delete('/:id', itemsMenu_controller_1.eliminarItemMenu);
 exports.default = router;
+//# sourceMappingURL=itemsMenu.routes.js.map

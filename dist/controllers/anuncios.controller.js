@@ -151,3 +151,4 @@ const eliminarAnuncio = async (req, res) => {
     }
 };
 exports.eliminarAnuncio = eliminarAnuncio;
+//# sourceMappingURL=anuncios.controller.js.map

@@ -20,3 +20,4 @@ entidadAsociadaSchema.set('toJSON', {
     },
 });
 exports.EntidadAsociadaModel = mongoose_1.default.model('EntidadAsociada', entidadAsociadaSchema, 'entidadAsociada');
+//# sourceMappingURL=entidadAsociada.model.js.map

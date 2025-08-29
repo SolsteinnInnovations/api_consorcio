@@ -9,3 +9,4 @@ router.get('/:id', personas_controller_1.getPersonaById);
 router.put('/:id', personas_controller_1.actualizarPersona);
 router.delete('/:id', personas_controller_1.eliminarPersona);
 exports.default = router;
+//# sourceMappingURL=personas.routes.js.map

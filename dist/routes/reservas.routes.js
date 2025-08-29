@@ -9,3 +9,4 @@ router.get('/:id', reservas_controller_1.getReservaById);
 router.put('/:id', reservas_controller_1.actualizarReserva);
 router.delete('/:id', reservas_controller_1.eliminarReserva);
 exports.default = router;
+//# sourceMappingURL=reservas.routes.js.map

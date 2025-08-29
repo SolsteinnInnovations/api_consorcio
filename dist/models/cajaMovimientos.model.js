@@ -98,3 +98,4 @@ cajaMovimientoSchema.set('toJSON', {
     },
 });
 exports.CajaMovimientosModel = mongoose_1.default.model('CajaMovimientos', cajaMovimientoSchema, 'cajaMovimientos');
+//# sourceMappingURL=cajaMovimientos.model.js.map

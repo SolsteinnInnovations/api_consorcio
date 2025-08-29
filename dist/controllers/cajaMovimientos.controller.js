@@ -266,3 +266,4 @@ const getSaldoCajaByEdificio = async (req, res) => {
     }
 };
 exports.getSaldoCajaByEdificio = getSaldoCajaByEdificio;
+//# sourceMappingURL=cajaMovimientos.controller.js.map

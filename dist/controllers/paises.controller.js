@@ -1,7 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.eliminarPais = exports.actualizarPais = exports.getPaisById = exports.getPaises = exports.crearPais = void 0;
+exports.seedPais = exports.eliminarPais = exports.actualizarPais = exports.getPaisById = exports.getPaises = exports.crearPais = void 0;
 const paises_model_1 = require("../models/paises.model");
+const PaisService_1 = require("../services/PaisService");
+const seedPais = async (req, res) => {
+    try {
+        await paises_model_1.PaisesModel.syncIndexes();
+        await (0, PaisService_1.createPaises)();
+        res.status(201).json({
+            ok: true,
+            msg: 'Países creados exitosamente',
+        });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al insertar países:', error
+        });
+    }
+};
+exports.seedPais = seedPais;
 const crearPais = async (req, res) => {
     const { descripcion } = req.body;
     try {
@@ -72,7 +91,7 @@ const getPaisById = async (req, res) => {
 exports.getPaisById = getPaisById;
 const actualizarPais = async (req, res) => {
     const id = req.params.id;
-    const { descripcion, ...campos } = req.body;
+    const { nombre, ...campos } = req.body;
     try {
         const paisDB = await paises_model_1.PaisesModel.findById(id);
         if (!paisDB) {
@@ -81,15 +100,15 @@ const actualizarPais = async (req, res) => {
                 msg: 'País no encontrado por ID.'
             });
         }
-        if (descripcion && descripcion !== paisDB.descripcion) {
-            const existeDescripcion = await paises_model_1.PaisesModel.findOne({ descripcion });
+        if (nombre && nombre !== paisDB.nombre) {
+            const existeDescripcion = await paises_model_1.PaisesModel.findOne({ nombre });
             if (existeDescripcion) {
                 return res.status(400).json({
                     ok: false,
                     msg: 'Ya existe un país con esa descripción.'
                 });
             }
-            campos.descripcion = descripcion;
+            campos.nombre = nombre;
         }
         const paisActualizado = await paises_model_1.PaisesModel.findByIdAndUpdate(id, campos, { new: true });
         res.status(200).json({
@@ -133,3 +152,4 @@ const eliminarPais = async (req, res) => {
     }
 };
 exports.eliminarPais = eliminarPais;
+//# sourceMappingURL=paises.controller.js.map

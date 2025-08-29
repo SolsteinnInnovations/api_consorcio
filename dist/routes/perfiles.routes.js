@@ -15,3 +15,4 @@ router.put('/:id', perfiles_controller_1.actualizarPerfil);
 // Ruta para deshabilitar (eliminación lógica) un perfil por su ID
 router.delete('/:id', perfiles_controller_1.eliminarPerfil);
 exports.default = router;
+//# sourceMappingURL=perfiles.routes.js.map

@@ -6,9 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PaisesModel = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const paisSchema = new mongoose_1.default.Schema({
-    descripcion: {
+    nombre: {
         type: String,
-        required: [true, 'La descripción del país es obligatoria'],
+        required: [true, 'El nombre del país es obligatoria'],
         unique: true
     }
 });
@@ -20,3 +20,4 @@ paisSchema.set('toJSON', {
     },
 });
 exports.PaisesModel = mongoose_1.default.model('Paises', paisSchema, 'paises');
+//# sourceMappingURL=paises.model.js.map

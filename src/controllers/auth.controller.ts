@@ -10,7 +10,7 @@ import { EdificiosModel } from '../models/edificios.model'; // Importa el modelo
 
 const register = async (req: Request, res: Response) => {
     const { login, password, idPerfil, idEdificio } = req.body;
-
+    
     try {
         // Verifica si el login ya existe
         const existeLogin = await UsuariosModel.findOne({ login });
@@ -106,7 +106,7 @@ const login = async (req: Request, res: Response) => {
 
         // Genera un JWT (cambia 'secret' por tu clave secreta real)
         const token = jwt.sign(
-            { uid: usuario._id, login: usuario.login, idPerfil: usuario.idPerfil },
+            { uid: usuario._id, login: usuario.login, idPerfil: usuario.idPerfil, idEdificio: usuario.idEdificio },
             process.env.JWT_SECRET! ,
             { expiresIn: '8h' }
         );
@@ -117,7 +117,8 @@ const login = async (req: Request, res: Response) => {
             usuario: {
                 id: usuario._id,
                 login: usuario.login,
-                idPerfil: usuario.idPerfil
+                idPerfil: usuario.idPerfil,
+                idEdificio: usuario.idEdificio
             },
             token
         });
@@ -131,10 +132,6 @@ const login = async (req: Request, res: Response) => {
         
     }
 };
-
-
-
-
 
 
 export {

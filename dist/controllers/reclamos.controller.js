@@ -186,3 +186,4 @@ const eliminarReclamo = async (req, res) => {
     }
 };
 exports.eliminarReclamo = eliminarReclamo;
+//# sourceMappingURL=reclamos.controller.js.map

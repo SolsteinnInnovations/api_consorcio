@@ -36,9 +36,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProvinciasModel = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const provinciaSchema = new mongoose_1.default.Schema({
-    descripcion: {
+    nombre: {
         type: String,
-        required: [true, 'La descripción de la provincia es obligatoria'],
+        required: [true, 'El nombre de la provincia es obligatoria'],
         unique: true // Asumo que el nombre de la provincia es único
     },
     idPais: {
@@ -55,3 +55,4 @@ provinciaSchema.set('toJSON', {
     },
 });
 exports.ProvinciasModel = mongoose_1.default.model('Provincias', provinciaSchema, 'provincias');
+//# sourceMappingURL=provincias.model.js.map

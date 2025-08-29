@@ -9,3 +9,4 @@ router.get('/:id', expensas_controller_1.getExpensaById);
 router.put('/:id', expensas_controller_1.actualizarExpensa);
 router.delete('/:id', expensas_controller_1.eliminarExpensa);
 exports.default = router;
+//# sourceMappingURL=expensas.routes.js.map

@@ -80,3 +80,4 @@ app.get('/', (req, res) => {
     res.send('Bienvenidos a la API Consorcios 🚀');
 });
 exports.default = app;
+//# sourceMappingURL=app.js.map

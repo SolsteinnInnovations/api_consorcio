@@ -93,3 +93,4 @@ personaSchema.set('toJSON', {
     },
 });
 exports.PersonasModel = mongoose_1.default.model('Personas', personaSchema, 'personas');
+//# sourceMappingURL=personas.model.js.map

@@ -8,3 +8,4 @@ router.get('/', edificiosEncargados_controller_1.getEdificiosEncargados);
 router.get('/:id', edificiosEncargados_controller_1.getEdificioEncargadoById);
 router.delete('/:id', edificiosEncargados_controller_1.eliminarEdificioEncargado); // Nota: No hay PUT para esta tabla transpuesta, solo crear/eliminar relaciones
 exports.default = router;
+//# sourceMappingURL=edificiosEncargados.routes.js.map

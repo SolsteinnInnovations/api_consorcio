@@ -8,3 +8,4 @@ router.get('/', reclamosDepartamentos_controller_1.getReclamosDepartamentos);
 router.get('/:id', reclamosDepartamentos_controller_1.getReclamoDepartamentoById);
 router.delete('/:id', reclamosDepartamentos_controller_1.eliminarReclamoDepartamento); // No hay PUT para tablas de unión simples
 exports.default = router;
+//# sourceMappingURL=reclamosDepartamentos.routes.js.map

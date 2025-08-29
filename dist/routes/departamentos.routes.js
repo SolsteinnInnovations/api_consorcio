@@ -9,3 +9,4 @@ router.get('/:id', departamentos_controller_1.getDepartamentoById);
 router.put('/:id', departamentos_controller_1.actualizarDepartamento);
 router.delete('/:id', departamentos_controller_1.eliminarDepartamento);
 exports.default = router;
+//# sourceMappingURL=departamentos.routes.js.map

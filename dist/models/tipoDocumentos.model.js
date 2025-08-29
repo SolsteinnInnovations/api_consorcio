@@ -20,3 +20,4 @@ tipoDocumentoSchema.set('toJSON', {
     },
 });
 exports.TipoDocumentosModel = mongoose_1.default.model('TipoDocumentos', tipoDocumentoSchema, 'tipoDocumentos');
+//# sourceMappingURL=tipoDocumentos.model.js.map

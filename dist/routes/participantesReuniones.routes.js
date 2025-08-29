@@ -8,3 +8,4 @@ router.get('/', participantesReuniones_controller_1.getParticipantesReuniones);
 router.get('/:id', participantesReuniones_controller_1.getParticipanteReunionById);
 router.delete('/:id', participantesReuniones_controller_1.eliminarParticipanteReunion); // No hay PUT para tablas de unión simples
 exports.default = router;
+//# sourceMappingURL=participantesReuniones.routes.js.map

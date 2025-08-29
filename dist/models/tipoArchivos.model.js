@@ -55,3 +55,4 @@ tipoArchivoSchema.set('toJSON', {
     },
 });
 exports.TipoArchivosModel = mongoose_1.default.model('TipoArchivos', tipoArchivoSchema, 'tipoArchivos');
+//# sourceMappingURL=tipoArchivos.model.js.map

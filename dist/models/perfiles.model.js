@@ -30,3 +30,4 @@ perfilSchema.set('toJSON', {
 });
 // Cambiar 'PerfilModel' a 'PerfilesModel' y 'Perfil' a 'Perfiles' en el nombre de la colección
 exports.PerfilesModel = mongoose_1.default.model('Perfiles', perfilSchema);
+//# sourceMappingURL=perfiles.model.js.map
