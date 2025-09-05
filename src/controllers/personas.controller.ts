@@ -38,7 +38,7 @@ const crearPersona = async (req: Request, res: Response) => {
             if (!existeLocalidad) {
                 return res.status(400).json({
                     ok: false,
-                    msg: 'El ID de localidad proporcionado no existe.'
+                    msg: 'El ID de localidad proporcionado no existe'
                 });
             }
         }

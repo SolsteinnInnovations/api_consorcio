@@ -38,6 +38,7 @@ const crearEdificio = async (req: Request, res: Response) => {
 
 const getEdificios = async (req: Request, res: Response) => {
     try {
+        
         const edificios = await EdificiosModel.find().populate({
             path: 'idLocalidad',
             select: 'descripcion codigoPostal',

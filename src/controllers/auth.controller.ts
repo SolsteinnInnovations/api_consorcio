@@ -63,6 +63,7 @@ const register = async (req: Request, res: Response) => {
         });
 
         await usuario.save();   
+        
         await PersonasModel.create({
             idUsuario: usuario._id
         })
